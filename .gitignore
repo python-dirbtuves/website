@@ -1,0 +1,7 @@
+*.pyc
+/bin
+/cache
+/include
+/lib
+/local
+/output
