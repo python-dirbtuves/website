@@ -12,3 +12,146 @@ Vaizdo įrašas:
 
     https://plus.google.com/events/ck2fop1oh7iv3boejeltj5sdplk
 
+
+Darbas su funkcijų šakomis
+==========================
+
+Ačiū Arvydui už padarytą dizainą! Viena pastaba, dėl naujo kodo pateikimo. Jei
+pradedate darbą prie naujos funkcijos, darykite tai naujoje šakoje:
+
+    git checkout -b naujos-funkcijos-pavadinimas
+
+Tai leis kitiems komandos nariams prisijungti prie pradėto darbo, „neteršiant“
+master šakos. Kai funkcija bus baigta kurti, visus pakeitimus bus galima
+sulieti į master.
+
+Arvydas kodą pateikė iš karto master šakoje, todėl, man tai sukėlė šiokių tokių
+sunkumų, kadangi vienu metu turėjau pakeitimų tiek origin/master, tiek
+arvydas/master šakose. Tam kartui išsisukau su ``git reset --hard``. Bet
+naudojant funkcijų šakas, darbas būtų žymiai paprastesnis.
+
+
+Testai
+======
+
+Iki šiol projektas neturėjo jokių testų. Su Igno pagalba, pasidarėme testus ir
+prijungėme flake8_.
+
+Aptarėme egzistuojančius funkcinių testų variantus, kuriuos galima rašyti
+Django karkasui. Variantai yra tokie:
+
+1. `Django test client`_ - testuoja tik Django ``view`` kodą su dirbtiniu
+   ``request`` objektu.
+
+2. homophony_, kuris naudoja zope.testbrowser_ - testuoja grąžinto HTML turinį.
+
+3. Selenium_ - testuoja ir HTML turinį ir vykdo JavaScript kodą.
+
+Visi šie testai surašyti didėjančio funkcionalumo testavimo tvarka.
+
+Patobulinome homophony biblioteką
+=================================
+
+Funkcinių testų rašymui pasirinkome homophony_ biblioteką, kuri pasirodo turėjo
+tokią klaidą, dėl kurios bibliotekos nebuvo galima įdiegti.
+
+Klaida susijusi su tuo, kad į python paketą, nebuvo įtrauktas ``README.md``
+failas, kuris naudojamas ``setup.py`` faile, todėl diegimo metu gavome klaidą
+apie neegzistuojantį README.md failą.
+
+Klaida nesunkiai pataisoma ir tai buvo puiki proga patobulinti atviro kodo
+biblioteką.
+
+Pataisymui susikūrėme homophony_ repozitorijos šaką, pataisėme klaidą ir
+pateikėme pataisymą įtraukimui:
+
+    https://github.com/shrubberysoft/homophony/pull/2
+
+Kadangi mūsų homophony_ bibliotekos pataisymų akimirksniu niekas neįtraukė į
+pagrindinę repozitoriją ir neišleido naujos bibliotekos versijos, tai laikinai
+susipakavome paketą iš savo šakos ir paketo failą įtraukėme į repozitoriją. Tai
+buvo padaryta taip:
+
+1. Iš savo homophony_ bibliotekos repozitorijos šakos susipakavome paketą [1]::
+
+       $ python setup.py sdist
+
+   Po šios komandos, paketo failas patalpintas ``dist/`` kataloge.
+
+2. Sukurtą paketą perkėlėme į savo repozitorijos ``libs/`` katalogą::
+
+       $ mv homophony/dist/homophony-0.1.7.1.tar.gz akl.lt/libs
+
+3. ``buildout.cfg`` konfigūracijoje nurodėme, kad ieškant paketų, būtų žiūrima
+   ir į naujai sukurtą ``libs/`` katalogą::
+
+       [buildout]
+       find-links = ./libs
+
+4. ``versions.cfg`` faile nurodėme, kad mums reikia ``0.1.7.1`` homophony_
+   paketo versijos, t.y. tokios versijos kurioje yra mūsų pataisymas, kadangi
+   paskutinį ``.1`` pridėjome patys, kartu su pataisymu.
+
+Po šių veiksmų, nelaukiant, kol homophony_ autoriai išleis naują versiją,
+galėjome naudoti savo pataisytą bibliotekos variantą.
+
+Šiuo metu, rašant šį tekstą, homophony_ autoriai jau patvirtino įtraukimo
+užklausą ir gal būt, greitu laiku išleis naują paketo versiją. Tada mums užteks
+tik pakeisti versijos numerį ir gausime naujausią paketo versiją, kartu su mūsų
+ir kitais pataisymais.
+
+Makefile priklausomybių valdymas
+================================
+
+Ignas pasiūlė geresnį Makefile_ priklausomybių valdymą.
+
+Tiems, kas mažai pažįstami su Makefile_, tai šių failų esminė struktūra yra
+tokia::
+
+    TARGET: SOURCE
+            RULE
+
+Pavyzdžiui::
+
+    bin/django: bin/buildout
+            bin/buildout
+
+    bin/buildout: 
+            python bootstrap.py
+
+Šį pavyzdį reikėtų interpretuoti taip:
+
+1. Tam, kad būtų sukurtas ``bin/django`` failas, reikalingas ``bin/buildout``
+   failas.
+
+2. Tam, kad būtų sukurtas ``bin/buildout`` failas, reikia įvykdyti ``python
+   bootstrap.py`` komandą.
+
+3. Tam, kad būtų sukurtas ``bin/django`` failas, reikia įvykdyti
+   ``bin/buildout`` komandą.
+
+
+Šis pavyzdys labai paprastas. Tačiau didesniame Makefile_ faile, priklausomybių
+būna daugiau, atsiranda ištisos priklausomybių grandinės. Dažnai mąstant
+programuotojiškai, savaime norisi optimizuoti *SOURCE* dalį neįtraukiant
+tiesiogines *RULE* priklausomybes, jei tokia priklausomybė jau yra įtraukta
+kažkur priklausomybių grandinėje.
+
+Toks netiesioginis priklausomybių valdymas daro Makefile_ vis sunkiau skaitomu.
+Todėl Ignas pasiūlė, visada nurodyti tiesiogines *RULE* priklausomybes, net ir
+tais atvejais, jei priklausomybė tenkinama, kažkur priklausomybių grandinėje
+netiesiogiai.
+
+Žodžiu į *SOURCE* dalį visada reikia surašyti viską, ko tiesiogiai reikalauja
+*RULE*. Taip Makefile_ bus paprasčiau skaityti ir pertvarkyti.
+
+
+.. [1] https://packaging.python.org/en/latest/tutorial.html#packaging-your-project
+
+
+.. _flake8: https://pypi.python.org/pypi/flake8
+.. _homophony: https://pypi.python.org/pypi/homophony
+.. _Makefile: https://www.gnu.org/software/make/manual/html_node/Makefiles.html
+.. _Django test client: https://docs.djangoproject.com/en/1.7/topics/testing/tools/#the-test-client
+.. _zope.testbrowser: https://pypi.python.org/pypi/zope.testbrowser
+.. _Selenium: http://www.seleniumhq.org/
