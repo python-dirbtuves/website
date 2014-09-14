@@ -1,0 +1,44 @@
+Pythond dirbtuvės 2014-09-01
+############################
+
+:date: 2014-09-01
+:modified: 2014-09-01
+:tags: akl.lt
+:slug: susitikimai/akllt/2014-09-01
+:authors: sirex
+
+
+Vaizdo įrašas:
+
+    https://plus.google.com/b/100119957289048414703/events/c7shvp71tqlg8arqtqmsd33p1rs
+
+Per pirmą pusvalandį į projektą integravome django-compressor_.
+django-compressor_ iš esmės panaudojome dėl SASS_ integracijos.
+django-compressor_ pasirūpina, kad SASS_ kodas būtų automatiškai sukompiliuotas
+užkraunant puslapį. Todėl darbas su SASS_ vyksta sklaidžiai, nereikia sukti
+galvos, apie SASS_ kompiliavimą.
+
+Papildomai django-compressor_ leidžia apjungti kelis CSS, SASS, JavaScript ir
+kitą statinį turinį į vieno failo paktus. Tai leidžia laisviau organizuoti
+statinius failus, nesibaiminant didelio kiekio HTTP užklausų į serverį, kadangi
+produkciniame serveryje, visa tai bus apjungta į kelis failus.
+
+Mūsų projekte šią apjungimo funkciją naudojame minimaliai, kadangi SASS_ turi
+savo priemones, kodo organizavimui atskiruose failuose [1]_. O JavaScript
+modulių organizavimui naudojame RequireJS_. Produkciniame serveryje, JavaScript
+kodas apjungiamas į kelis vieno failo modulius naudojant r.js_ priemonę.
+
+
+Likusius tris pusvalandžius dirbome prie dizaino karpymo, naudodami Bootstrap_
+karkasą. Paaiškėjo, kad niekam nepatinka dizaino karpymas, todėl darbas ėjosi
+lėtai ir sunkiai. Nusprendėme dizaino karpymo dalį pasibaigti namuose, kad
+toliau galėtume imtis Python kodo.
+
+
+.. [1] http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import
+
+.. _django-compressor: https://pypi.python.org/pypi/django_compressor
+.. _SASS: http://sass-lang.com/
+.. _RequireJS: http://requirejs.org/
+.. _r.js: http://requirejs.org/docs/optimization.html
+.. _Bootsrap: http://getbootstrap.com/
