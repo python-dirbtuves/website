@@ -12,3 +12,125 @@ Vaizdo įrašas:
 
     https://plus.google.com/events/cqr659kdhmvseeo8aqff8d3h5i0
 
+Senos akl.lt svetainės duomenys
+===============================
+
+Šiam susitikimui gavome senos akl.lt svetainės duomenis [1]_, ačiū Mariui!
+Duomenys eksportuoti failų pavidalu. Senoje akl.lt svetainėje buvo naudojamas
+Zope 2 karkasas ir ZODB duomenų bazė. Kadangi Zope 2 ZODB duomenų bazė modelis
+beveik atitinka failų sistemos modelį, tai kiekvienas eksportuotas failas yra
+Zope 2 mazgas ZODB duomenų bazėje. Kiekvieno Zope 2 mazgo metaduomenys
+išsaugoti papildomai išsaugoti ``.z2meta`` kataloge, paprastu ConfigParser_
+formatu.
+
+Django management komanda
+=========================
+
+Turėdami duomenis nusprendėme pasirašyti Django management komandą [2]_, kurios
+pagalba, nurodžius kelią iki katalogo, panašiai taip::
+
+    bin/django aklltimport kelias/iki/exporto
+
+Būtų importuoti seni duomenys.
+
+TDD
+===
+
+Importo skripto kodą pradėjome rašyti TDD_ būdu. Rašant testą, tikslas buvo
+patikrinti ar importuotas puslapis teisingai atvaizduojamas Wagtail_ kontekste.
+
+Programuojant TDD_ principu, pirmiausia stengiamasi parašyti testą, po to
+rašomas kodas tenkinantis aprašytus testus. Toks programavimo būdas leidžia
+labai greitai ir dažnai patikrinti, kaip veikia kodas. Prieš pradedant
+programuoti atsiranda galimybė trumpai apsirašyti kaip mūsų būsimas kodas
+veiks, kaip jį reikės iškviesti ir pan.
+
+Rašant TDD_ nebūtina apsirašyti visų testų vienu kartu, žymiai geriau, po
+truputį rašyti ir testus ir kodą.
+
+Python paketo resursų valdymas
+==============================
+
+Prieš pradedant darbą prireikė išsisaugoti pavyzdinį fragmentą iš eksporto
+duomenų. Kadangi pavyzdinis fragmentas yra mūsų projekto paketo dalis, tai
+norint gauti kelią iki failo, paketo viduje, panaudojome ``pkg_resources``
+modulį [3]_ iš setuptools_ bibliotekos. Taip daroma todėl, kad po diegimo, mūsų
+paketas gali atsidurti be kurioje, mums nežinomoje vietoje, mūsų paktas gali
+būti net gi zip failas. Todėl setuptools_ pagalba, galima gauti mums reikiamą
+failą, nesirūpindami ir ir kaip mūsų paketas bus įdiegtas.
+
+
+Reliatyvūs ar absoliutūs importai testuose?
+===========================================
+
+Reliatyvūs importai atrodo taip::
+
+    from .models import MyModel
+
+Absoliutūs importai atrodo taip::
+
+    from akllt.models import MyModel
+
+Nors reliatyvūs importai atrodo trumpesni ir patogesni, tačiau, rašant testus,
+visai tikėtina, kad testo moduliai bus perkelti į kitą vietą, reorganizuojant
+kodą. Todėl, po perkėlimo, reliatyvūs importai gali nustoti veikit. Tuo tarpu
+tikimybė, kad keisis projekto pavadinimas yra žymiai mažesnė.
+
+Todėl, bent jau rašant testus, labiau rekomenduotina naudoti absoliučius
+importus.
+
+Debuginimas su pdb
+==================
+
+Keliose vietose prireikė pasitikrinti kas vyksta, naudojantis Python debugeriu
+pdb_. pdb_ sustabdo programos vykdymą, leidžia peržiūrėti aktyvaus frame
+kintamųjų reikšmes, vykdyti kodą pažingsniui ir t.t.
+
+Ptogesnis pdb_ yra ipdb_, sukurtas ipython_ pagrindu.
+
+Wagtail
+=======
+
+Toliau, didžioji dalis susitikimo vyko analizuojant Wagtail_ išeities tekstus
+ir aiškinantis, kaip sukurti puslapio objektą testuose.
+
+Nors išeities tekstų skaitymas dažnai praverčia, tačiau dirbant prie didesnių
+paketų, tokių, kaip Wagtail_ kartais praverčia pasiskaityti dokumentaciją [4]_.
+
+Wagtail_ turinio valdymo sistemoje, kaip ir daugelio kitų TVS, naudojamas
+esminis, medžio pavidalo ``Page`` objektas. ``Page`` gali būti išplėstas,
+pridedant specifinių meta duomenų, taip sukuriant kitus turinio tipus, tame
+pačiame medyje. Mūsų projekte būtent taip ir padaryta su ``StandardPage``.
+
+Medžio struktūra realizuota naudojant django-treebeard_ biblioteką. Kuriant
+medžius, nebūtina rankiniu būdu pildyti tokius atributus kaip ``depth``,
+``path`` ar ``numchild``, kadangi tai yra django-treebeard_ ``MP_Node`` klasės
+atributai. Medžio valdymui galima naudoti ``MP_Node`` metodus: ``add_root``,
+``add_child``, ``add_sibling`` ir pan.
+
+
+Nepaisant to, kad dokumentacijos paskaitymas būtų padėjęs suprasti, kaip
+naudoti ``Page`` objektus, esminė klaida buvo neteisingos testų klasės
+paveldėjimas. Testai buvo rašomi paveldinti iš ``homophony.BrowserTestCase``,
+kuris paveldi ``unittest.TestCase`` klasės. Nei viena iš šių klasių
+neinicializuoja duomenų bazės, todėl puslapis taip ir nebuvo sukuriamas
+testuose. Panaudojus ``django.test.TestCase`` klasę, duomenų bazė paruošiama
+testams ir kuriamas puslapis sėkmingai susikūrė.
+
+Daugiau apie ``TestCase`` klases: [5]_.
+
+
+.. [1] https://github.com/mgedmin/akl.lt-zope-export
+.. [2] https://docs.djangoproject.com/en/1.7/howto/custom-management-commands/
+.. [3] https://pythonhosted.org/setuptools/pkg_resources.html#resource-extraction
+.. [4] http://wagtail.readthedocs.org/en/latest/core_components/pages/theory.html
+.. [5] https://docs.djangoproject.com/en/1.7/topics/testing/tools/#provided-test-case-classes
+
+.. _ConfigParser: https://docs.python.org/2/library/configparser.html
+.. _TDD: http://en.wikipedia.org/wiki/Test-driven_development
+.. _setuptools: https://pypi.python.org/pypi/setuptools
+.. _Wagtail: http://wagtail.io/
+.. _pdb: https://docs.python.org/2/library/pdb.html
+.. _ipdb: https://pypi.python.org/pypi/ipdb
+.. _ipython: http://ipython.org/
+.. _django-treebeard: https://tabo.pe/projects/django-treebeard/

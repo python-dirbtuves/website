@@ -1,0 +1,79 @@
+Pythond dirbtuvės 2014-09-22
+############################
+
+:date: 2014-09-22
+:modified: 2014-09-22
+:tags: akl.lt
+:slug: susitikimai/akllt/2014-09-22
+:authors: sirex
+
+
+Vaizdo įrašas:
+
+    https://plus.google.com/events/c0k9rfgadh1fn9r4p9bg6cdg604
+
+
+Django įspėjimų pranešimų valdymas
+==================================
+
+Mūsų projekto testai jau ne vieną susitikima išveda labai daug
+``RemovedInDjango18Warning`` ir panašių įspėjimų. Tokie įspėjimai yra naudingi,
+kai rašai savo kodą, tačiau, kai tokie įspėjimai ateina iš kitų bibliotekų ir
+jų yra gausu, tai gali trukdyti pamatyti klaidas ar kitą informaciją.
+
+Kad pranešimų gausoje neliktų nepastebėti svarbūs pranešimai nusprendėme
+filtruoti įspėjimus ateinančius iš kitų bibliotekų.
+
+Standartinėje Python bibliotekoje yra warnings_ modulis, skirtas įspėjimų
+filtravimui. Todėl iš pradžių bandėme panaudoti šį modulį įspėjimų filtravimui.
+Tačiau tai padaryti sekėsi labai sunkiai.
+
+Problema su warnings_ moduliu buvo tame, kad Django išskirtinai įjungia visų
+RemovedInNextVersionWarning kategorijos įspėjimų rodymą [1]::
+
+    # Route warnings through python logging
+    logging.captureWarnings(True)
+
+    # RemovedInNextVersionWarning is a subclass of DeprecationWarning which
+    # is hidden by default, hence we force the "default" behavior
+    warnings.simplefilter("default", RemovedInNextVersionWarning)
+
+Negana to, įspėjimų išvedimas perduodamas logging moduliui. Išsiaiškinus šią
+vietą, viskas tapo labai paprasta. Kadangi įspėjimai perduodami logging
+moduliui, tai juos nesunkiai galima filtruoti naudojant logging filtrus::
+
+    
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'filters': {
+            'warnings': {
+                '()': 'akllt.log.FilterWarnings',
+            },
+        },
+        'loggers': {
+            'py.warnings': {
+                'filters': ['warnings'],
+            },
+        }
+    }
+
+Visus pakeitimus susijusius su pakeitimų filtravimu galite rasti čia:
+
+    https://github.com/python-dirbtuves/akl.lt/commit/2a8fc5d470844650eef1b162205470a13e2d23ac
+
+
+Kam rašyti testus?
+==================
+
+Duomenų importavimo skriptas bus naudojamas tik vieną kartą, todėl iškyla
+klausimas, kam rašyti testus kodui, kuris bus panaudotas tik vieną kartą?
+
+
+Teksto redaktoriaus paruošimas darbui
+=====================================
+
+
+.. [1] https://github.com/django/django/blob/1.7/django/utils/log.py#L74
+
+.. _warnings: https://docs.python.org/2/library/warnings.html
