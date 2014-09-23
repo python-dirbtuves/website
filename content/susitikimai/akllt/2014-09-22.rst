@@ -29,7 +29,7 @@ filtravimui. Todėl iš pradžių bandėme panaudoti šį modulį įspėjimų fi
 Tačiau tai padaryti sekėsi labai sunkiai.
 
 Problema su warnings_ moduliu buvo tame, kad Django išskirtinai įjungia visų
-RemovedInNextVersionWarning kategorijos įspėjimų rodymą [1]::
+``RemovedInNextVersionWarning`` kategorijos įspėjimų rodymą [1]::
 
     # Route warnings through python logging
     logging.captureWarnings(True)
@@ -69,9 +69,30 @@ Kam rašyti testus?
 Duomenų importavimo skriptas bus naudojamas tik vieną kartą, todėl iškyla
 klausimas, kam rašyti testus kodui, kuris bus panaudotas tik vieną kartą?
 
+Darbas su komandine eilute
+==========================
+
+::
+
+    <C-U>
+    <C-Y>
+
 
 Teksto redaktoriaus paruošimas darbui
 =====================================
+
+Patarimai Vim redaktoriaus naudotojams
+--------------------------------------
+
+::
+
+    set makeprg=make\ test
+    nmap <F8> :silent make!<CR> | redraw!<CR>
+    copen
+
+
+Patarimai Sublime redaktoriaus naudotojams
+------------------------------------------
 
 
 .. [1] https://github.com/django/django/blob/1.7/django/utils/log.py#L74
