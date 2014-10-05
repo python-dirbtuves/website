@@ -28,7 +28,7 @@ Standartinėje Python bibliotekoje yra warnings_ modulis, skirtas įspėjimų
 filtravimui. Todėl iš pradžių bandėme panaudoti šį modulį įspėjimų filtravimui.
 Tačiau tai padaryti sekėsi labai sunkiai.
 
-Problema su warnings_ moduliu buvo tame, kad Django išskirtinai įjungia visų
+Problema su warnings_ moduliu buvo ta, kad Django išskirtinai įjungia visų
 ``RemovedInNextVersionWarning`` kategorijos įspėjimų rodymą [1]::
 
     # Route warnings through python logging
@@ -38,11 +38,10 @@ Problema su warnings_ moduliu buvo tame, kad Django išskirtinai įjungia visų
     # is hidden by default, hence we force the "default" behavior
     warnings.simplefilter("default", RemovedInNextVersionWarning)
 
-Negana to, įspėjimų išvedimas perduodamas logging moduliui. Išsiaiškinus šią
-vietą, viskas tapo labai paprasta. Kadangi įspėjimai perduodami logging
+Negana to, įspėjimų išvedimas perduodamas ``logging`` moduliui. Išsiaiškinus
+šią vietą, viskas tapo labai paprasta. Kadangi įspėjimai perduodami logging
 moduliui, tai juos nesunkiai galima filtruoti naudojant logging filtrus::
 
-    
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -66,35 +65,51 @@ Visus pakeitimus susijusius su pakeitimų filtravimu galite rasti čia:
 Kam rašyti testus?
 ==================
 
-Duomenų importavimo skriptas bus naudojamas tik vieną kartą, todėl iškyla
-klausimas, kam rašyti testus kodui, kuris bus panaudotas tik vieną kartą?
+Duomenų importavimo skriptas bus naudojamas tik vieną kartą, todėl susitikimo
+metu iškylo klausimas, kam rašyti testus kodui, kuris bus panaudotas tik vieną
+kartą?
 
-Darbas su komandine eilute
-==========================
+Iš esmės, testoti kodą reikia bet kokiu atveju. Testuoti kodą galima tiesiog
+paleidžiant eksportavimo komandą arba leidžiant testus. Jei testų paleidimas
+yra inegruotas į teksto redaktorių, tai testuoti kodą leidžiant testus yra
+paprasčiau. Tuo pačiu, rašant testus, atsiranda daug daugiau galimybių
+ištestuoti visus, net ir giliausius kodo kampelius. Parašius testus, jie
+išlieka ir vėliau tobulinant kodą, nebereikia prisiminti, kaip buvo testuotas
+kodas anksčiau.
 
-::
+Žodžiu, testuoti bet kokį kodą rašant testus yra patogu. Rašyti testus gali
+būti nepatogu tais atvejais, kai didelė kodo bazė, niekada nebuvo testuojama
+automatiniais testais.
 
-    <C-U>
-    <C-Y>
+Darbas su komandų eilute
+========================
+
+Kadangi programuojant dažnai tenka naudotis komandų eilute, verta plačiau
+pasidomėti, kaip veikia bash/zsh komandų eilutė. Susitikimo metu, panaudojome
+``<C-U>`` ir ``<C-Y>`` kombinaciją. Abi kombinacijos atėjusios iš Emacs [2],
+``<C-U>`` ištrina viską nuo kursoriaus iki eilutės pradžios, o ``<C-Y>``
+atstato tai, kas buvo ištrinta.
+
+Naudojant šias klavišų kombinacijas kartu, patogu laikinai išvalyti visą
+komandą, įvesti kitą komandą, kuri buvo pamiršta ir galiausiai tęsti ištrintos
+komandos redagavimą.
 
 
 Teksto redaktoriaus paruošimas darbui
 =====================================
 
-Patarimai Vim redaktoriaus naudotojams
---------------------------------------
-
-::
+Jei naudojate Vim redaktorių, žemiau pateikti nustatymai padės leisti testus::
 
     set makeprg=make\ test
-    nmap <F8> :silent make!<CR> | redraw!<CR>
+    nmap <F8> :silent make!<CR>
     copen
 
+Taip sukonfigūravus Vim, testus galėsite paleisti tiesiog paspaudę ``F8``.  Jei
+leidžiant testus įvyko klaida, rezultatą matysite *QuickFix* lange.
 
-Patarimai Sublime redaktoriaus naudotojams
-------------------------------------------
 
 
 .. [1] https://github.com/django/django/blob/1.7/django/utils/log.py#L74
+.. [2] http://www.gnu.org/software/bash/manual/bashref.html#Readline-Bare-Essentials
 
 .. _warnings: https://docs.python.org/2/library/warnings.html
