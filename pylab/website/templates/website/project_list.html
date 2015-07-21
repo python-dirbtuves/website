@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+
+
+{% block content %}
+
+<div class="create-buttons">
+  <a href="{% url 'create-project' %}" class="btn btn-primary btn-lg">{% trans "Suggest new project idea" %}</a>
+</div>
+
+{% if projects %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>{% trans "Project idea" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for project in projects %}
+    <tr>
+      <td><a href="{% url 'project-details' project.slug %}">{{ project.title }}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div><p class="text-info">{% trans "No suggested projects yet." %}</p></div>
+{% endif %}
+
+{% endblock %}
