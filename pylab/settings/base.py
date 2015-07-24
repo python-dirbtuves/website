@@ -18,9 +18,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
 LANGUAGE_CODE = 'en'
 
-# Custom user model https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model
-AUTH_USER_MODEL = 'accounts.User'
-
 # pylab constant used for language choice field
 ugettext = lambda s: s
 AVAILABLE_LANGUAGES = (

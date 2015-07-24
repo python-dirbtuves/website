@@ -2,13 +2,32 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 import django.contrib.auth.models as auth_models
 
+import pylab.accounts.models as accounts_models
 
-class SettingsForm(forms.ModelForm):
+
+class UserProfileForm(forms.ModelForm):
+    first_name = forms.CharField(label=_('First name'), required=False)
+    last_name = forms.CharField(label=_('Last name'), required=False)
+    email = forms.EmailField(label=_('Email address'), required=False)
+
     class Meta:
-        model = auth_models.User
-        fields = ('first_name', 'last_name', 'email')
+        model = accounts_models.UserProfile
+        fields = ('first_name', 'last_name', 'email', 'language')
         help_texts = {
             'email': _(
                 "Bus naudojamas komunikacijai. Jei pageidaujate negauti jokių laiškų, palikite šį lauką tuščią."
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['email'].initial = self.instance.user.email
+        self.fields['first_name'].initial = self.instance.user.first_name
+        self.fields['last_name'].initial = self.instance.user.last_name
+
+    def save(self, *args, **kwargs):
+        super(UserProfileForm, self).save(*args, **kwargs)
+        self.instance.user.email = self.cleaned_data.get('email')
+        self.instance.user.first_name = self.cleaned_data.get('first_name')
+        self.instance.user.last_name = self.cleaned_data.get('last_name')
+        self.instance.user.save()
