@@ -21,6 +21,7 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['language'].choices = [("", _("Default")),] + self.fields["language"].choices[1:]
         self.fields['email'].initial = self.instance.user.email
         self.fields['first_name'].initial = self.instance.user.first_name
         self.fields['last_name'].initial = self.instance.user.last_name

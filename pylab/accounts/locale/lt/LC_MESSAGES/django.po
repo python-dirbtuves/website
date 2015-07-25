@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-25 03:22-0500\n"
+"POT-Creation-Date: 2015-07-25 05:34-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -34,6 +34,10 @@ msgid ""
 msgstr ""
 "Bus naudojamas komunikacijai. Jei pageidaujate negauti jokių laiškų, "
 "palikite šį lauką tuščią."
+
+#: forms.py:24
+msgid "Default"
+msgstr "Numatytoji"
 
 #: models.py:11
 msgid "language"
