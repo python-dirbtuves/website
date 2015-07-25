@@ -1,0 +1,92 @@
+# This file is distributed under the same license as the pylab-lt package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-25 03:22-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: Lithuanian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: forms.py:9
+msgid "First name"
+msgstr "Vardas"
+
+#: forms.py:10
+msgid "Last name"
+msgstr "Pavardė"
+
+#: forms.py:11
+msgid "Email address"
+msgstr "El. pašto adresas"
+
+#: forms.py:18
+msgid ""
+"Will be used for communication. If you want not to get any emails, leave "
+"this field empty."
+msgstr ""
+"Bus naudojamas komunikacijai. Jei pageidaujate negauti jokių laiškų, "
+"palikite šį lauką tuščią."
+
+#: models.py:11
+msgid "language"
+msgstr "kalba"
+
+#: templates/accounts/login.html:9 templates/accounts/login.html.py:24
+msgid "Login"
+msgstr "Prisijungti"
+
+#: templates/accounts/login.html:14
+msgid "Enter your <a href=\"http://openidexplained.com/\">OpenID</a> address:"
+msgstr ""
+"Įveskite savo <a href=\"http://openidexplained.com/\">OpenID</a> adresą:"
+
+#: templates/accounts/login.html:41
+msgid "or choose one of available authorization providers:"
+msgstr "arba pasirinkite vieną iš prieinamų autorizacijos tiekėjų:"
+
+#: templates/socialaccount/signup.html:6
+msgid "Signup"
+msgstr "Susikurti paskyrą"
+
+#: templates/socialaccount/signup.html:12
+msgid "Finish your registration"
+msgstr "Užbaigti registraciją"
+
+#: templates/socialaccount/signup.html:17
+#, python-format
+msgid ""
+"\n"
+"      Your registraiton to %(site_name)s almost done. Please fill in form "
+"below and then you be able to\n"
+"      use %(site_name)s.\n"
+"      "
+msgstr ""
+"\n"
+"      Jūsų registracija  %(site_name)s tinklapyje beveik baigta. Prašome "
+"užpildyti formą, esančią žemiau ir galėsite\n"
+"      naudotis %(site_name)s.\n"
+"      "
+
+#: templates/socialaccount/signup.html:32
+msgid "Submit"
+msgstr "Saugoti"
+
+#: views.py:35
+msgid "Settings were saved succesfully."
+msgstr "Nustatymai buvo sėkimingai išsaugoti."
+
+#: views.py:40
+msgid "Profile settings"
+msgstr "Profilio nustatymai"
+
+#: views.py:40
+msgid "Save"
+msgstr "Saugoti"

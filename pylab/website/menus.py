@@ -15,6 +15,6 @@ class Item(object):
 
 menus = {
     'topmenu': [
-        Item(_('Vasaros Python dirbtuvės'), 'project-list'),
+        Item(_('Summer Python Workshop'), 'project-list'),
     ],
 }

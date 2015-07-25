@@ -15,7 +15,7 @@ class UserProfileForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'email', 'language')
         help_texts = {
             'email': _(
-                "Bus naudojamas komunikacijai. Jei pageidaujate negauti jokių laiškų, palikite šį lauką tuščią."
+                "Will be used for communication. If you want not to get any emails, leave this field empty."
             ),
         }
 
