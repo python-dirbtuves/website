@@ -1,6 +1,8 @@
 import exportrecipe
 import pathlib
 
+from django.utils.translation import ugettext_lazy as _
+
 PROJECT_DIR = pathlib.Path(__file__).parents[2]
 
 config = exportrecipe.load(str(PROJECT_DIR / 'settings.json'))
@@ -17,12 +19,9 @@ MEDIA_ROOT = str(PROJECT_DIR / 'var/www/media')
 STATIC_URL = '/static/'
 STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
 LANGUAGE_CODE = 'en'
-
-# pylab constant used for language choice field
-ugettext = lambda s: s
-AVAILABLE_LANGUAGES = (
-    ('lt', ugettext('Lithuanian')),
-    ('en', ugettext('English')),
+LANGUAGES = (
+    ('lt', _('Lithuanian')),
+    ('en', _('English')),
 )
 
 INSTALLED_APPS = (
@@ -35,10 +34,11 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'pylab.accounts.middleware.UserProfileLocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
