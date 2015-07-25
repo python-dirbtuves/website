@@ -183,6 +183,8 @@ INSTALLED_APPS += (
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_AUTO_SIGNUP = False
+ACCOUNT_SIGNUP_FORM_CLASS = 'pylab.accounts.forms.SignupForm'
 
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',

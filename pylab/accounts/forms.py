@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 import django.contrib.auth.models as auth_models
 
@@ -32,3 +33,26 @@ class UserProfileForm(forms.ModelForm):
         self.instance.user.first_name = self.cleaned_data.get('first_name')
         self.instance.user.last_name = self.cleaned_data.get('last_name')
         self.instance.user.save()
+
+
+class SignupForm(forms.ModelForm):
+    language = forms.ChoiceField(label=_('Language'), required=False,
+                                 choices=[("", _("Default")),] + list(settings.LANGUAGES))
+
+    class Meta:
+        model = auth_models.User
+        fields = ('username', 'first_name', 'last_name', 'email', 'language')
+        help_texts = {
+            'email': _(
+                "Will be used for communication. If you want not to get any emails, leave this field empty."
+            ),
+        }
+
+    def signup(self, request, user):
+        user.username = self.cleaned_data['username']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+        user.save()
+        user.userprofile.language = self.cleaned_data['language']
+        user.userprofile.save()
