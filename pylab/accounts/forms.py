@@ -54,5 +54,5 @@ class SignupForm(forms.ModelForm):
         user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
         user.save()
-        user.userprofile.language = self.cleaned_data['language']
-        user.userprofile.save()
+        user.profile.language = self.cleaned_data['language']
+        user.profile.save()
