@@ -23,6 +23,9 @@ LANGUAGES = (
     ('lt', _('Lithuanian')),
     ('en', _('English')),
 )
+LOCALE_PATHS = (
+    str(PROJECT_DIR / 'pylab/locale'),
+)
 
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
