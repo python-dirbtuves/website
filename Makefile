@@ -4,6 +4,7 @@ help:
 	@echo 'make ubuntu     install the necessary system packages (requires sudo)'
 	@echo 'make            set up the development environment'
 	@echo 'make run        start the web server'
+	@echo 'make test       run project test suite'
 	@echo 'make tags       build ctags file'
 
 ubuntu:
@@ -12,6 +13,8 @@ ubuntu:
 	sudo apt-get -y install build-essential python-dev exuberant-ctags
 
 run: bin/django ; bin/django runserver
+
+test: bin/django ; bin/django test --settings=pylab.settings.testing --nologcapture
 
 tags: bin/django ; bin/ctags -v --tag-relative
 

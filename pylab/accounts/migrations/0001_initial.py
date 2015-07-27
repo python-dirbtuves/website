@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('language', models.CharField(default='lt', verbose_name='language', max_length=7, choices=[('lt', 'Lithuanian'), ('en', 'English')])),
+                ('language', models.CharField(default='', verbose_name='language', max_length=7, choices=[('lt', 'Lithuanian'), ('en', 'English')])),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
