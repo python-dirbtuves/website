@@ -15,6 +15,8 @@ run: bin/django ; bin/django runserver
 
 tags: bin/django ; bin/ctags -v --tag-relative
 
+testall: bin/django ; scripts/runtests.py pylab
+
 
 buildout.cfg: ; ./scripts/genconfig.py config/env/development.cfg
 
@@ -29,4 +31,4 @@ var/www/static var/www/media: ; mkdir -p $@
 bin/django: bin/buildout buildout.cfg $(wildcard config/*.cfg) $(wildcard config/env/*.cfg) mkdirs ; $<
 
 
-.PHONY: all help run mkdirs tags
+.PHONY: all help run mkdirs tags testall
