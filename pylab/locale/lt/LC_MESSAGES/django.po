@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-27 03:04-0500\n"
+"POT-Creation-Date: 2015-07-27 06:02-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -66,13 +66,23 @@ msgstr "Python dirbtuvių politika"
 
 #: website/templates/website/about.html:29
 msgid ""
+"Each Python workshop starts with initial meeting, during\n"
+"    which participants vote on which project they want to work during this "
+"workshop.\n"
+"    The initial meeting is a bit longer than usual meetings and is mainly "
+"devoted\n"
+"    to clarify aims and user stories for the chosen project."
+msgstr ""
+
+#: website/templates/website/about.html:34
+msgid ""
 "Intellectual property and source code created during Python\n"
 "    workshops by participants belong to Python workshops."
 msgstr ""
 "Python dirbtuvių metu padarytų dalyvių intelektualinių ir programinio kodo "
 "įnašų autorinės teisės priklauso Python dirbtuvėms."
 
-#: website/templates/website/about.html:32
+#: website/templates/website/about.html:37
 msgid ""
 "Python workshop's strategical and financial solutions are\n"
 "    made democratically: Python workshops participants vote and majority's "
@@ -83,25 +93,21 @@ msgstr ""
 "demokratiškai: balsuojant Python dirbtuvių dalyviams ir vykdant daugumos "
 "valią."
 
-#: website/templates/website/about.html:36
+#: website/templates/website/about.html:41
 msgid "Each Python workshops participant has to:"
 msgstr "Python dirbtuvių dalyviai turi:"
 
-#: website/templates/website/about.html:38
+#: website/templates/website/about.html:43
 msgid "Accept open source and open knowledge ideologies."
 msgstr "Pritarti atviro kodo ir atvirų žinių ideologijoms."
 
-#: website/templates/website/about.html:39
+#: website/templates/website/about.html:44
 msgid ""
 "Respect and protect human rights and liberties.\n"
-"          Especially right for pricacy."
+"          Especially right for privacy."
 msgstr "Gerbti ir saugoti žmonių teises ir laisves. Ypač teisę į privatumą."
 
-#: website/templates/website/about.html:41
-msgid "Respect Lithuania and foster its prosperity."
-msgstr "Gerbti Lietuvą ir puoselėti jos gerbūvį."
-
-#: website/templates/website/about.html:44
+#: website/templates/website/about.html:48
 msgid ""
 "Python workshops participants can suggest ideas, which\n"
 "    could be implemented during Python workshops."
@@ -109,7 +115,7 @@ msgstr ""
 "Python dirbtuvių dalyviai gali siūlyti idėjas, kurias būtų galima realizuoti "
 "Python dirbtuvių metu."
 
-#: website/templates/website/about.html:47
+#: website/templates/website/about.html:51
 msgid ""
 "Good quality open source code is created during Python\n"
 "    workshops, hence projects are released under open source licences, "
@@ -120,7 +126,7 @@ msgstr ""
 "išeities kodas pateikiamas su atviro kodo licencija, jeigu Python dirbtuvių "
 "dalyviai nenusprendžia kitaip."
 
-#: website/templates/website/about.html:51
+#: website/templates/website/about.html:55
 msgid ""
 "Income from Python workshops projects has to be\n"
 "    allocated only for Python workshops community's prosper. For example,\n"
@@ -135,16 +141,15 @@ msgstr ""
 "sąnaudos, taip pat gali būti samdomi etatiniai Python dirbtuvių "
 "programuotojai."
 
-#: website/templates/website/about.html:57
-msgid ""
-"All financial operations have to be provided openly in\n"
-"    computer friendly format to guarantee transparency. All expenses have "
-"to\n"
-"    be rational, substantiated and approved by the majority of Python "
-"workshops\n"
-"    participants."
-msgstr ""
-"Visos finansinės operacijos turi būti pateikiamos viešai kompiuteriniu "
-"formatu, kad būtų užtikrintas skaidrumas. Visos sąnaudos turi būti "
-"racionalios ir pagrįstos bei joms turi pritarti Python dirbtuvių dalyvių "
-"dauguma."
+#~ msgid ""
+#~ "All financial operations have to be provided openly in\n"
+#~ "    computer friendly format to guarantee transparency. All expenses have "
+#~ "to\n"
+#~ "    be rational, substantiated and approved by the majority of Python "
+#~ "workshops\n"
+#~ "    participants."
+#~ msgstr ""
+#~ "Visos finansinės operacijos turi būti pateikiamos viešai kompiuteriniu "
+#~ "formatu, kad būtų užtikrintas skaidrumas. Visos sąnaudos turi būti "
+#~ "racionalios ir pagrįstos bei joms turi pritarti Python dirbtuvių dalyvių "
+#~ "dauguma."
