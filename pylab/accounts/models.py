@@ -10,6 +10,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(auth_models.User, related_name='profile')
     language = models.CharField(_('Language'), max_length=7, choices=settings.LANGUAGES, default='lt', blank=True)
 
+
 @receiver(post_save, sender=auth_models.User)
 def create_userprofile_for_new_user(sender, **kwargs):
     user = kwargs.get('instance')

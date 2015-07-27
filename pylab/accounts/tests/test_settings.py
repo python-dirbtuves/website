@@ -26,4 +26,4 @@ class SettingsTests(django_webtest.WebTest):
         resp.form['language'] = 'en'
         resp = resp.form.submit()
         self.assertEqual(resp.status_int, 302)
-        self.assertEqual(list(accounts_models.UserProfile.objects.values_list('language')), [('en',),])
+        self.assertEqual(list(accounts_models.UserProfile.objects.values_list('language')), [('en',)])
