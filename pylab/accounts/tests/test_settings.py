@@ -22,7 +22,7 @@ class SettingsTests(django_webtest.WebTest):
             ('My', 'Name', ''),
         ])
         # User profile was created for new user and language is not selected
-        self.assertEqual(list(accounts_models.UserProfile.objects.values_list('language')), [('',),])
+        self.assertEqual(list(accounts_models.UserProfile.objects.values_list('language')), [('',), ])
 
     def test_userprofile_settings(self):
         resp = self.app.get('/accounts/settings/', user='u1')
@@ -30,7 +30,7 @@ class SettingsTests(django_webtest.WebTest):
         resp = resp.form.submit()
         self.assertEqual(resp.status_int, 302)
         # Language setting was saved correctly
-        self.assertEqual(list(accounts_models.UserProfile.objects.values_list('language')), [('en',),])
+        self.assertEqual(list(accounts_models.UserProfile.objects.values_list('language')), [('en',), ])
 
     def test_user_profile_locale_middleware(self):
         resp = self.app.get('/accounts/settings/', user='u1')
