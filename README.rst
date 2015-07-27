@@ -13,5 +13,7 @@ Website for Python workshops internal needs.
 Contacts
 ========
 
-Website: [pylab.lt](http://pylab.lt)
-Mailing list: https://groups.google.com/d/forum/python-dirbtuves
+| Website: pylab.lt_
+| Mailing list: https://groups.google.com/d/forum/python-dirbtuves
+
+.. _pylab.lt: http://pylab.lt
