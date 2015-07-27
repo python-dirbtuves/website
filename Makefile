@@ -5,6 +5,7 @@ help:
 	@echo 'make            set up the development environment'
 	@echo 'make run        start the web server'
 	@echo 'make test       run project test suite'
+	@echo 'make testall    run all tests, pyflakes, pylint and coverage'
 	@echo 'make tags       build ctags file'
 
 ubuntu:
@@ -16,9 +17,9 @@ run: bin/django ; bin/django runserver
 
 test: bin/django ; bin/django test --settings=pylab.settings.testing --nologcapture
 
-tags: bin/django ; bin/ctags -v --tag-relative
-
 testall: bin/django ; scripts/runtests.py pylab
+
+tags: bin/django ; bin/ctags -v --tag-relative
 
 
 buildout.cfg: ; ./scripts/genconfig.py config/env/development.cfg
@@ -34,4 +35,4 @@ var/www/static var/www/media: ; mkdir -p $@
 bin/django: bin/buildout buildout.cfg $(wildcard config/*.cfg) $(wildcard config/env/*.cfg) mkdirs ; $<
 
 
-.PHONY: all help run mkdirs tags testall
+.PHONY: all help run mkdirs test testall tags
