@@ -12,6 +12,6 @@ class UserProfile(models.Model):
 
 
 @receiver(post_save, sender=auth_models.User)
-def create_userprofile_for_new_user(sender, **kwargs):
+def create_userprofile_for_new_user(sender, **kwargs):  # pylint: disable=unused-argument
     user = kwargs.get('instance')
     UserProfile.objects.get_or_create(user=user)
