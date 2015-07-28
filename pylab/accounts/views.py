@@ -29,13 +29,13 @@ def logout(request):
 @login_required
 def settings(request):
     if request.method == 'POST':
-        form = accounts_forms.SettingsForm(request.POST, instance=request.user)
+        form = accounts_forms.UserProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid():
             form.save()
-            messages.success(request, ugettext("Nustatymai buvo sėkimingai išsaugoti."))
+            messages.success(request, ugettext("Settings were saved succesfully."))
             return redirect('accounts_settings')
     else:
-        form = accounts_forms.SettingsForm(instance=request.user)
+        form = accounts_forms.UserProfileForm(instance=request.user.profile)
     return render(request, 'accounts/settings.html', {
-        'form': formrenderer.render(request, form, title=ugettext("Profilio nustatymai"), submit=ugettext("Saugoti")),
+        'form': formrenderer.render(request, form, title=ugettext("Profile settings"), submit=ugettext("Save")),
     })

@@ -15,6 +15,151 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#: accounts/forms.py:10
+msgid "First name"
+msgstr "Vardas"
+
+#: accounts/forms.py:11
+msgid "Last name"
+msgstr "Pavardė"
+
+#: accounts/forms.py:12
+msgid "Email address"
+msgstr "El. pašto adresas"
+
+#: accounts/forms.py:19 accounts/forms.py:47
+msgid ""
+"Will be used for communication. If you want not to get any emails, leave "
+"this field empty."
+msgstr ""
+"Bus naudojamas komunikacijai. Jei pageidaujate negauti jokių laiškų, "
+"palikite šį lauką tuščią."
+
+#: accounts/forms.py:25 accounts/forms.py:40
+msgid "Default"
+msgstr "Numatytoji"
+
+#: accounts/forms.py:39 accounts/models.py:11
+msgid "Language"
+msgstr "Kalba"
+
+#: accounts/templates/accounts/login.html:9
+#: accounts/templates/accounts/login.html:24 website/templates/base.html:36
+msgid "Login"
+msgstr "Prisijungti"
+
+#: accounts/templates/accounts/login.html:14
+msgid "Enter your <a href=\"http://openidexplained.com/\">OpenID</a> address:"
+msgstr ""
+"Įveskite savo <a href=\"http://openidexplained.com/\">OpenID</a> adresą:"
+
+#: accounts/templates/accounts/login.html:41
+msgid "or choose one of available authorization providers:"
+msgstr "arba pasirinkite vieną iš prieinamų autorizacijos tiekėjų:"
+
+#: accounts/templates/socialaccount/signup.html:6
+msgid "Signup"
+msgstr "Susikurti paskyrą"
+
+#: accounts/templates/socialaccount/signup.html:12
+msgid "Finish your registration"
+msgstr "Užbaigti registraciją"
+
+#: accounts/templates/socialaccount/signup.html:17
+#, python-format
+msgid ""
+"\n"
+"      Your registraiton to %(site_name)s almost done. Please fill in form "
+"below and then you be able to\n"
+"      use %(site_name)s.\n"
+"      "
+msgstr ""
+"\n"
+"      Jūsų registracija  %(site_name)s tinklapyje beveik baigta. Prašome "
+"užpildyti formą, esančią žemiau ir galėsite\n"
+"      naudotis %(site_name)s.\n"
+"      "
+
+#: accounts/templates/socialaccount/signup.html:32
+#: website/helpers/formrenderer.py:10 website/views.py:41 website/views.py:62
+msgid "Submit"
+msgstr "Saugoti"
+
+#: accounts/views.py:35
+msgid "Settings were saved succesfully."
+msgstr "Nustatymai buvo sėkimingai išsaugoti."
+
+#: accounts/views.py:40
+msgid "Profile settings"
+msgstr "Profilio nustatymai"
+
+#: accounts/views.py:40
+msgid "Save"
+msgstr "Saugoti"
+
+#: settings/base.py:23
+msgid "Lithuanian"
+msgstr "Lietuvių"
+
+#: settings/base.py:24
+msgid "English"
+msgstr "Anglų"
+
+#: website/forms.py:16
+msgid ""
+"Describe your project idea. You can use [Markdown](http://daringfireball.net/"
+"projects/markdown/syntax){:target=_blank} markup."
+msgstr ""
+"Apibūdinkite savo projekto idėją. Galite naudoti [Žymėjimų kalbą](http://"
+"daringfireball.net/projects/markdown/syntax){:target=_blank}."
+
+
+#: website/menus.py:18 website/templates/base.html:14
+msgid "Summer Python Workshop"
+msgstr "Vasaros Python dirbtuvės"
+
+#: website/models.py:15
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: website/models.py:16
+msgid "Description"
+msgstr "Aprašymas"
+
+#: website/templates/base.html:34
+msgid "Logout"
+msgstr "Atsijungti"
+
+#: website/templates/website/project_details.html:11
+msgid "Change"
+msgstr "Redaguoti"
+
+#: website/templates/website/project_list.html:8
+msgid "Suggest new project idea"
+msgstr "Pasiūlyti naują projekto idėją"
+
+#: website/templates/website/project_list.html:15
+msgid "Project idea"
+msgstr "Projekto idėja"
+
+#: website/templates/website/project_list.html:27
+msgid "No suggested projects yet."
+msgstr "Kol kas nėra pasiūlytų projektų."
+
+#: website/views.py:35
+#, python-format
+msgid "Project „%s“ created."
+msgstr "Projektas „%s“ sukurtas."
+
+#: website/views.py:41
+msgid "Suggest new project"
+msgstr "Pasiūlyti naują projektą"
+
+#: website/views.py:56
+#, python-format
+msgid "Project „%s“ updated."
+msgstr "Projektas „%s“ atnaujintas."
+
 #: website/menus.py:19
 msgid "About"
 msgstr "Apie"
@@ -140,16 +285,3 @@ msgstr ""
 "serverių, patalpų nuomos, komunalinių mokesčių, hakatonų organizavimo "
 "sąnaudos, taip pat gali būti samdomi etatiniai Python dirbtuvių "
 "programuotojai."
-
-#~ msgid ""
-#~ "All financial operations have to be provided openly in\n"
-#~ "    computer friendly format to guarantee transparency. All expenses have "
-#~ "to\n"
-#~ "    be rational, substantiated and approved by the majority of Python "
-#~ "workshops\n"
-#~ "    participants."
-#~ msgstr ""
-#~ "Visos finansinės operacijos turi būti pateikiamos viešai kompiuteriniu "
-#~ "formatu, kad būtų užtikrintas skaidrumas. Visos sąnaudos turi būti "
-#~ "racionalios ir pagrįstos bei joms turi pritarti Python dirbtuvių dalyvių "
-#~ "dauguma."

@@ -1,6 +1,8 @@
 import exportrecipe
 import pathlib
 
+from django.utils.translation import ugettext_lazy as _
+
 PROJECT_DIR = pathlib.Path(__file__).parents[2]
 
 config = exportrecipe.load(str(PROJECT_DIR / 'settings.json'))
@@ -17,6 +19,13 @@ MEDIA_ROOT = str(PROJECT_DIR / 'var/www/media')
 STATIC_URL = '/static/'
 STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
 LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('lt', _('Lithuanian')),
+    ('en', _('English')),
+)
+LOCALE_PATHS = (
+    str(PROJECT_DIR / 'pylab/locale'),
+)
 
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
@@ -28,10 +37,11 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'pylab.accounts.middleware.UserProfileLocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
@@ -176,6 +186,8 @@ INSTALLED_APPS += (
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_AUTO_SIGNUP = False
+ACCOUNT_SIGNUP_FORM_CLASS = 'pylab.accounts.forms.SignupForm'
 
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
