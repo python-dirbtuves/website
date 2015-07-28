@@ -1,12 +1,12 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-import pylab.website.models as website_models
+from pylab.core.models import Project
 
 
 class ProjectForm(forms.ModelForm):
     class Meta:
-        model = website_models.Project
+        model = Project
         fields = ('title', 'description')
         widgets = {
             'description': forms.Textarea(attrs={'rows': 16}),

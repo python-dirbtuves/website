@@ -5,19 +5,19 @@ from django.utils.translation import ugettext
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from pylab.core.models import Project
 from pylab.website.helpers import formrenderer
-import pylab.website.models as website_models
 import pylab.website.forms as website_forms
 
 
 def project_list(request):
     return render(request, 'website/project_list.html', {
-        'projects': website_models.Project.objects.all(),
+        'projects': Project.objects.all(),
     })
 
 
 def project_details(request, project_slug):
-    project = get_object_or_404(website_models.Project, slug=project_slug)
+    project = get_object_or_404(Project, slug=project_slug)
     return render(request, 'website/project_details.html', {
         'project': project,
         'can_update': request.user.is_authenticated() and (request.user.is_superuser or project.author == request.user)
@@ -45,9 +45,9 @@ def project_create(request):
 @login_required
 def project_update(request, project_slug):
     if request.user.is_superuser:
-        project = get_object_or_404(website_models.Project, slug=project_slug)
+        project = get_object_or_404(Project, slug=project_slug)
     else:
-        project = get_object_or_404(website_models.Project, slug=project_slug, author=request.user)
+        project = get_object_or_404(Project, slug=project_slug, author=request.user)
 
     if request.method == 'POST':
         form = website_forms.ProjectForm(request.POST, instance=project)
