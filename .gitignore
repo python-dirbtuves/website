@@ -13,3 +13,4 @@ tags
 __pycache__
 *.egg-info
 *.pyc
+*.mo
