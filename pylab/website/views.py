@@ -61,3 +61,7 @@ def project_update(request, project_slug):
     return render(request, 'website/project_form.html', {
         'form': formrenderer.render(request, form, title=project.title, submit=ugettext('Submit')),
     })
+
+
+def about(request):
+    return render(request, 'website/about.html', {})

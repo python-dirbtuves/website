@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^projects/create/$', views.project_create, name='create-project'),
     url(r'^projects/(?P<project_slug>%s)/$' % slug, views.project_details, name='project-details'),
     url(r'^projects/(?P<project_slug>%s)/update/$' % slug, views.project_update, name='project-update'),
+    url(r'^about/$', views.about, name='about'),
 ]
 
 urlpatterns += [

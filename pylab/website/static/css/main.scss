@@ -22,3 +22,19 @@
 .page-actions > .btn {
     margin-right: 12px;
 }
+
+.about {
+    margin: 0 auto;
+    margin-bottom: 200px;
+    max-width: 900px;
+    overflow: hidden;
+    padding: 10px;
+    font-size: 14px;
+    font-family: sans-serif;
+    h1 {
+        color: #1c3b56;
+        font-size: 30px;
+        font-weight: normal;
+        margin-top: 20px;
+    }
+}
