@@ -38,15 +38,15 @@ class Event(models.Model):
     modified = ModificationDateTimeField()
     author = models.ForeignKey(User)
     slug = AutoSlugField(populate_from='title')
+    parent_event = models.ForeignKey('self', null=True, blank=True)
+    event_type = models.PositiveSmallIntegerField(choices=EVENT_TYPE_CHOICES, default=OTHER)
     title = models.CharField(_("Title"), max_length=255)
-    description = models.TextField(_("Description"))
     starts = models.DateTimeField()
     ends = models.DateTimeField(null=True, blank=True)
     whole_day_event = models.BooleanField(default=False)
-    venue_address = models.CharField(max_length=255)
-    venue_map = models.CharField(max_length=255, help_text=_("OpenStreetMap iframe src link."))
-    event_type = models.PositiveSmallIntegerField(choices=EVENT_TYPE_CHOICES, default=OTHER)
-    parent_event = models.ForeignKey('self', null=True, blank=True)
+    description = models.TextField(_("Description"), blank=True)
+    venue_address = models.CharField(max_length=255, blank=True)
+    venue_map = models.URLField(max_length=255, blank=True, help_text=_("OpenStreetMap iframe src link."))
 
     def __str__(self):
         return self.title
