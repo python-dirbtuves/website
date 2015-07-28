@@ -17,3 +17,13 @@ Contacts
 | Mailing list: https://groups.google.com/d/forum/python-dirbtuves
 
 .. _pylab.lt: http://pylab.lt
+
+
+Development environment
+=======================
+
+You need to create database manually::
+
+  $ createdb pylab
+  $ make testall
+  $ make run
