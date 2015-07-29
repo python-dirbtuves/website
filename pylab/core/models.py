@@ -45,8 +45,8 @@ class Event(models.Model):
     ends = models.DateTimeField(null=True, blank=True)
     whole_day_event = models.BooleanField(default=False)
     description = models.TextField(_("Description"), blank=True)
-    venue_address = models.CharField(max_length=255, blank=True)
-    venue_map = models.URLField(max_length=255, blank=True, help_text=_("OpenStreetMap iframe src link."))
+    address = models.CharField(max_length=255, blank=True)
+    osm_map_link = models.URLField(max_length=255, blank=True, help_text=_("OpenStreetMap iframe src link."))
 
     def __str__(self):
         return self.title
