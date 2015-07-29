@@ -5,14 +5,15 @@ from pylab.website import admin
 from pylab.website import views
 
 slug = r'[a-z0-9-]+'
+event = r'(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/(?P<slug>%s)' % slug
 
 urlpatterns = [
     url(r'^$', views.project_list, name='project-list'),
     url(r'^projects/create/$', views.project_create, name='create-project'),
     url(r'^projects/(?P<project_slug>%s)/$' % slug, views.project_details, name='project-details'),
     url(r'^projects/(?P<project_slug>%s)/update/$' % slug, views.project_update, name='project-update'),
-    url(r'^events/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]+)/(?P<event_slug>%s)/$' % slug,
-        views.event_details, name='event-details'),
+    url(r'^events/%s/$' % event, views.event_details, name='event-details'),
+    url(r'^events/%s/create-next-monday-event/$' % event, views.create_monday_event, name='create-monday-event'),
     url(r'^about/$', views.about, name='about'),
 ]
 
