@@ -10,6 +10,7 @@ from django.contrib import messages
 
 from pylab.core.models import Project, Event
 from pylab.website.helpers import formrenderer
+from pylab.website.helpers.decorators import superuser_required
 from pylab.website.utils.dates import next_weekday
 import pylab.website.forms as website_forms
 
@@ -76,6 +77,7 @@ def event_details(request, year, month, day, slug):
     return render(request, 'website/event_details.html', {'event': event})
 
 
+@superuser_required
 def create_monday_event(request, year, month, day, slug):
     parent_event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
 

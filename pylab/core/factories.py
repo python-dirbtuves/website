@@ -16,6 +16,17 @@ class UserFactory(factory.django.DjangoModelFactory):
     username = factory.LazyAttribute(fake.user_name())
 
 
+class SuperUserFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = User
+        django_get_or_create = ('username',)
+
+    username = factory.LazyAttribute(fake.user_name())
+    is_staff = True
+    is_superuser = True
+
+
 class EventFactory(factory.django.DjangoModelFactory):
 
     class Meta:

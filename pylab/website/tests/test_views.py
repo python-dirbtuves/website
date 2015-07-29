@@ -4,14 +4,14 @@ import mock
 import django_webtest
 
 from pylab.core.models import Event
-from pylab.core.factories import EventFactory, UserFactory
+from pylab.core.factories import EventFactory, SuperUserFactory
 
 
 class MondayEventTests(django_webtest.WebTest):
 
     def setUp(self):
         super().setUp()
-        UserFactory(username='user')
+        SuperUserFactory(username='user')
         self.event = EventFactory(event_type=Event.PROJECT_DEVELOPMENT)
 
     @mock.patch('pylab.website.views.next_weekday', autospec=True)
