@@ -23,7 +23,7 @@ class ProjectForm(forms.ModelForm):
 class NextMondayEvent(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ('title', 'starts', 'ends', 'description')
+        fields = ('title', 'starts', 'ends', 'address', 'osm_map_link', 'description')
 
     def __init__(self, parent_event, *args, **kwargs):
         super().__init__(*args, **kwargs)

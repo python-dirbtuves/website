@@ -24,6 +24,7 @@ setup(
         'mock',
         'docutils',
         'exportrecipe',
+        'pytz',
     ],
     classifiers=[
         'Development Status :: 1 - Planning',

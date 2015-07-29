@@ -1,4 +1,5 @@
 import datetime
+import pytz
 
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -87,18 +88,35 @@ def create_monday_event(request, year, month, day, slug):
             event.event_type = Event.WEEKLY_MEETING
             event.hide_time = False
             event.save()
+            event.description = event.description.format(link=request.build_absolute_uri(event.get_absolute_url()))
+            event.save()
             return redirect(event.get_absolute_url())
     else:
-        next_monday = next_weekday(0)
+        time = datetime.time(18, tzinfo=pytz.timezone('Europe/Vilnius'))
+        next_monday = datetime.datetime.combine(next_weekday(0), time)
         form = website_forms.NextMondayEvent(parent_event, initial={
             'title': "Python dirbtuvės %s" % next_monday.strftime('%Y-%m-%d'),
             'starts': next_monday,
             'ends': next_monday + datetime.timedelta(hours=2),
-            'description': '',
-            'address': '',
-            'osm_map_link': '',
+            'address': "M. K. Čiurlionio 13-1, Vilnius",
+            'osm_map_link': 'http://www.openstreetmap.org/export/embed.html?bbox=25.25977849960327%2C54.68112590686655%2C25.266462564468384%2C54.68386427291551&layer=mapnik&marker=54.68249356237776%2C25.263120532035828',
+            'description': '\n'.join([
+                'As always, same place, same time.',
+                '',
+                'Please register if you planning to attend:',
+                '',
+                '{link}',
+                '',
+                '--',
+                'pylab.lt',
+            ]),
         })
 
     return render(request, 'website/monday_event_form.html', {
-        'form': formrenderer.render(request, form, title=parent_event.title, submit=ugettext('Announce')),
+        'form': formrenderer.render(
+            request, form,
+            title=parent_event.title,
+            description=ugettext("Create new weekly event for \"%s\".") % parent_event.title,
+            submit=ugettext("Announce"),
+        ),
     })
