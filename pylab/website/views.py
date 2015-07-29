@@ -5,7 +5,7 @@ from django.utils.translation import ugettext
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from pylab.core.models import Project
+from pylab.core.models import Project, Event
 from pylab.website.helpers import formrenderer
 import pylab.website.forms as website_forms
 
@@ -65,3 +65,8 @@ def project_update(request, project_slug):
 
 def about(request):
     return render(request, 'website/about.html', {})
+
+
+def event_details(request, year, month, day, event_slug):
+    event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=event_slug)
+    return render(request, 'website/event_details.html', {'event': event})
