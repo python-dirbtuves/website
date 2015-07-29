@@ -43,7 +43,7 @@ class Event(models.Model):
     title = models.CharField(_("Title"), max_length=255)
     starts = models.DateTimeField()
     ends = models.DateTimeField(null=True, blank=True)
-    whole_day_event = models.BooleanField(default=False)
+    hide_time = models.BooleanField(default=False)  # If True, do not show time in starts and ends dates.
     description = models.TextField(_("Description"), blank=True)
     address = models.CharField(max_length=255, blank=True)
     osm_map_link = models.URLField(max_length=255, blank=True, help_text=_("OpenStreetMap iframe src link."))
