@@ -70,9 +70,9 @@ def about(request):
     return render(request, 'website/about.html', {})
 
 
-def event_details(request, year, month, day, slug):  # pylint: disable=unused-argument
-    get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
-    raise NotImplementedError
+def event_details(request, year, month, day, slug):
+    event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
+    return render(request, 'website/event_details.html', {'event': event})
 
 
 def create_monday_event(request, year, month, day, slug):
