@@ -105,7 +105,7 @@ At the top level project has these folders:
 Dependencies between apps
 -------------------------
 
-All mentioned above, *pylab* folder contains the source code and it contains
+As mentioned above, *pylab* folder contains the source code and it contains
 list of Django apps. Only ``locale`` ad ``settings`` are not apps. ``locale``
 contains translation strings and ``settings`` - Django settings.
 
