@@ -175,6 +175,7 @@ SERVER_ALIASES = (
 )
 
 INSTALLED_APPS += (
+    'pylab.core',
     'pylab.website',
     'pylab.accounts',
 )

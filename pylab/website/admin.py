@@ -10,7 +10,7 @@ from django.contrib.auth.views import redirect_to_login
 
 import allauth.socialaccount.admin as allauth
 
-import pylab.website.models as website_models
+from pylab.core.models import Project, Event
 
 
 class AdminSite(admin.AdminSite):
@@ -38,10 +38,20 @@ class AdminSite(admin.AdminSite):
 
         return wrapper
 
+
+class EventAdmin(admin.ModelAdmin):
+
+    list_display = ('__str__', 'event_type', 'starts', 'ends')
+
+    def get_changeform_initial_data(self, request):
+        return {'author': request.user}
+
+
 site = AdminSite()
 
 site.register(auth_models.User, auth_admin.UserAdmin)
-site.register(website_models.Project)
+site.register(Project)
+site.register(Event, EventAdmin)
 
 site.register(allauth.SocialApp, allauth.SocialAppAdmin)
 site.register(allauth.SocialToken, allauth.SocialTokenAdmin)
