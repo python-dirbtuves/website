@@ -25,5 +25,7 @@ Development environment
 You need to create database manually::
 
   $ createdb pylab
+  $ make
+  $ bin/django migrate
   $ make testall
   $ make run
