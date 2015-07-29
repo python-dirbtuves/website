@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from pylab.core.models import Event
 
 
-class EventTests(WebTest):
+class EventAdminTests(WebTest):
 
     def test_add_event(self):
         now = datetime.datetime.now()
