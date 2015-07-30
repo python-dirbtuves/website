@@ -10,23 +10,24 @@
 <div class="pull-right">
   <h3>{{ event.address }}</h3>
   <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-          src="{{ event.osm_map_link }}" style="border: 1px solid black"></iframe>
+          src="{{ event.osm_map_link }}" class="border-1px"></iframe>
 </div>
 
 <h3>{{ event.starts|date:'Y-m-d' }}
 {% if event.starts.date == event.ends.date %}
-    {% if not event.hide_time %}
-      <span style='padding-left: 16px;'>{{ event.starts|date:'H:i' }} – {{ event.ends|date:'H:i' }}</span>
-    {% endif %}</h3>
+  {% if not event.hide_time %}
+  <span class="event-time">{{ event.starts|date:'H:i' }} – {{ event.ends|date:'H:i' }}</span>
+  {% endif %}
 {% else %}
-    {% if not event.hide_time %}
-      {{ event.starts|date:'H:i' }}
-    {% endif %}
-    – {{ event.ends|date:'Y-m-d' }}
-    {% if not event.hide_time %}
-      {{ event.ends|date:'H:i' }}
-    {% endif %}</h3>
+  {% if not event.hide_time %}
+    {{ event.starts|date:'H:i' }}
+  {% endif %}
+  – {{ event.ends|date:'Y-m-d' }}
+  {% if not event.hide_time %}
+    {{ event.ends|date:'H:i' }}
+  {% endif %}
 {% endif %}
+</h3>
 
 {{ event.description|markdown }}
 
