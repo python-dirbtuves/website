@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+<form class="signup form-horizontal" id="signup-form" method="post" action="{% url 'socialaccount_signup' %}">
   <div class="col-sm-offset-2 col-sm-10">
     <h1>{% trans "Finish your registration" %}</h1>
   </div>
@@ -24,7 +24,7 @@
   {% csrf_token %}
   {% formrenderer form %}
   {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
   {% endif %}
 
   <div class="form-group">
@@ -33,6 +33,4 @@
     </div>
   </div>
 </form>
-
-
 {% endblock %}

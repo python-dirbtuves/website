@@ -87,6 +87,11 @@ def run_flake8(args):
     return subprocess.call(cmd)
 
 
+def run_htmllint(args):
+    cmd = ['bin/django', 'htmllint']
+    return subprocess.call(cmd)
+
+
 def run_pylint(args):
     cmd = [
         'bin/pylint',
@@ -123,6 +128,9 @@ def main(args=None):
 
     if retcode == 0:
         retcode = run_flake8(args)
+
+    if retcode == 0:
+        retcode = run_htmllint(args)
 
     if retcode == 0:
         retcode = run_pylint(args)
