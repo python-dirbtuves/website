@@ -24,6 +24,7 @@ setup(
         'mock',
         'docutils',
         'exportrecipe',
+        'pytz',
         'html_linter',
         'template-remover',
     ],

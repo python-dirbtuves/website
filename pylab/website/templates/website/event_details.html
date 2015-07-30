@@ -29,6 +29,12 @@
 {% endif %}
 </h3>
 
+{% if request.user.is_superuser and not event.parent_event %}
+<a href="{% url "create-weekly-event" event.starts.year event.starts.month event.starts.day event.slug %}" class="btn btn-default">
+  {% trans "Create weekly event" %}
+</a>
+{% endif %}
+
 {{ event.description|markdown }}
 
 {% endblock %}

@@ -57,6 +57,7 @@ def run_tests(args):
         '--with-doctest',
         '--doctest-tests',
         '--noinput',
+        '--match=^test',  # Default regex matches functions like user_passes_test
     ] + args.paths
 
     if args.profile:

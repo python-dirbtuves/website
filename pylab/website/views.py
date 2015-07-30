@@ -1,5 +1,3 @@
-import datetime
-
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
@@ -9,7 +7,8 @@ from django.contrib import messages
 
 from pylab.core.models import Project, Event
 from pylab.website.helpers import formrenderer
-from pylab.website.utils.dates import next_weekday
+from pylab.website.helpers.decorators import superuser_required
+from pylab.website.services import weeklyevents
 import pylab.website.forms as website_forms
 
 
@@ -75,30 +74,24 @@ def event_details(request, year, month, day, slug):
     return render(request, 'website/event_details.html', {'event': event})
 
 
-def create_monday_event(request, year, month, day, slug):
+@superuser_required
+def create_weekly_event(request, year, month, day, slug):
     parent_event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
 
     if request.method == 'POST':
-        form = website_forms.NextMondayEvent(parent_event, request.POST)
+        form = website_forms.NextWeeklyEventForm(parent_event, request.POST)
         if form.is_valid():
             event = form.save(commit=False)
-            event.author = request.user
-            event.parent_event = parent_event
-            event.event_type = Event.WEEKLY_MEETING
-            event.hide_time = False
-            event.save()
+            weeklyevents.save(request, parent_event, event)
             return redirect(event.get_absolute_url())
     else:
-        next_monday = next_weekday(0)
-        form = website_forms.NextMondayEvent(parent_event, initial={
-            'title': "Python dirbtuvės %s" % next_monday.strftime('%Y-%m-%d'),
-            'starts': next_monday,
-            'ends': next_monday + datetime.timedelta(hours=2),
-            'description': '',
-            'address': '',
-            'osm_map_link': '',
-        })
+        form = website_forms.NextWeeklyEventForm(parent_event, initial=weeklyevents.get_initial_values())
 
-    return render(request, 'website/monday_event_form.html', {
-        'form': formrenderer.render(request, form, title=parent_event.title, submit=ugettext('Announce')),
+    return render(request, 'website/weekly_event_form.html', {
+        'form': formrenderer.render(
+            request, form,
+            title=parent_event.title,
+            description=ugettext("Create new weekly event for \"%s\".") % parent_event.title,
+            submit=ugettext("Announce"),
+        ),
     })
