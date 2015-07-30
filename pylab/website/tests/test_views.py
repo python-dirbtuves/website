@@ -14,7 +14,7 @@ class MondayEventTests(django_webtest.WebTest):
         SuperUserFactory(username='user')
         self.event = EventFactory(event_type=Event.PROJECT_DEVELOPMENT)
 
-    @mock.patch('pylab.website.views.next_weekday', autospec=True)
+    @mock.patch('pylab.website.services.weeklyevents.next_weekday', autospec=True)
     def test_success(self, next_weekday):
         next_weekday.return_value = datetime.datetime(2015, 8, 3)
 

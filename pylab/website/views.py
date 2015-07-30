@@ -1,6 +1,3 @@
-import datetime
-import pytz
-
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
@@ -11,7 +8,7 @@ from django.contrib import messages
 from pylab.core.models import Project, Event
 from pylab.website.helpers import formrenderer
 from pylab.website.helpers.decorators import superuser_required
-from pylab.website.utils.dates import next_weekday
+from pylab.website.services import weeklyevents
 import pylab.website.forms as website_forms
 
 
@@ -85,34 +82,10 @@ def create_monday_event(request, year, month, day, slug):
         form = website_forms.NextMondayEvent(parent_event, request.POST)
         if form.is_valid():
             event = form.save(commit=False)
-            event.author = request.user
-            event.parent_event = parent_event
-            event.event_type = Event.WEEKLY_MEETING
-            event.hide_time = False
-            event.save()
-            event.description = event.description.format(link=request.build_absolute_uri(event.get_absolute_url()))
-            event.save()
+            weeklyevents.save(request, parent_event, event)
             return redirect(event.get_absolute_url())
     else:
-        time = datetime.time(18, tzinfo=pytz.timezone('Europe/Vilnius'))
-        next_monday = datetime.datetime.combine(next_weekday(0), time)
-        form = website_forms.NextMondayEvent(parent_event, initial={
-            'title': "Python dirbtuvės %s" % next_monday.strftime('%Y-%m-%d'),
-            'starts': next_monday,
-            'ends': next_monday + datetime.timedelta(hours=2),
-            'address': "M. K. Čiurlionio 13-1, Vilnius",
-            'osm_map_link': 'http://www.openstreetmap.org/export/embed.html?bbox=25.25977849960327%2C54.68112590686655%2C25.266462564468384%2C54.68386427291551&layer=mapnik&marker=54.68249356237776%2C25.263120532035828',
-            'description': '\n'.join([
-                'As always, same place, same time.',
-                '',
-                'Please register if you planning to attend:',
-                '',
-                '{link}',
-                '',
-                '--',
-                'pylab.lt',
-            ]),
-        })
+        form = website_forms.NextMondayEvent(parent_event, initial=weeklyevents.get_initial_values())
 
     return render(request, 'website/monday_event_form.html', {
         'form': formrenderer.render(
