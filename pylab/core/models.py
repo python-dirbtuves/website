@@ -48,6 +48,9 @@ class Event(models.Model):
     address = models.CharField(max_length=255, blank=True)
     osm_map_link = models.URLField(max_length=255, blank=True, help_text=_("OpenStreetMap iframe src link."))
 
+    class Meta:
+        unique_together = ('starts', 'slug')
+
     def __str__(self):
         return self.title
 
