@@ -25,6 +25,11 @@
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="collapse navbar-collapse">
+          <div class="logo">
+		    <a href="/">
+			  <img src="{% static 'img/logo.png' %}" style="width:45px;height:50px">
+			</a> 
+		  </div>
           <ul class="nav navbar-nav pull-right">
             {% if request.user.is_authenticated %}
             <li><a href="{% url 'accounts_settings' %}">
