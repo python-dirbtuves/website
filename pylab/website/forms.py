@@ -20,7 +20,7 @@ class ProjectForm(forms.ModelForm):
         }
 
 
-class NextMondayEvent(forms.ModelForm):
+class NextWeeklyEvent(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('title', 'starts', 'ends', 'address', 'osm_map_link', 'description')

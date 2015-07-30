@@ -75,19 +75,19 @@ def event_details(request, year, month, day, slug):
 
 
 @superuser_required
-def create_monday_event(request, year, month, day, slug):
+def create_weekly_event(request, year, month, day, slug):
     parent_event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
 
     if request.method == 'POST':
-        form = website_forms.NextMondayEvent(parent_event, request.POST)
+        form = website_forms.NextWeeklyEvent(parent_event, request.POST)
         if form.is_valid():
             event = form.save(commit=False)
             weeklyevents.save(request, parent_event, event)
             return redirect(event.get_absolute_url())
     else:
-        form = website_forms.NextMondayEvent(parent_event, initial=weeklyevents.get_initial_values())
+        form = website_forms.NextWeeklyEvent(parent_event, initial=weeklyevents.get_initial_values())
 
-    return render(request, 'website/monday_event_form.html', {
+    return render(request, 'website/weekly_event_form.html', {
         'form': formrenderer.render(
             request, form,
             title=parent_event.title,

@@ -7,7 +7,7 @@ from pylab.core.models import Event
 from pylab.core.factories import EventFactory, SuperUserFactory
 
 
-class MondayEventTests(django_webtest.WebTest):
+class WeeklyEventTests(django_webtest.WebTest):
 
     def setUp(self):
         super().setUp()
@@ -18,7 +18,7 @@ class MondayEventTests(django_webtest.WebTest):
     def test_success(self, next_weekday):
         next_weekday.return_value = datetime.datetime(2015, 8, 3)
 
-        resp = self.app.get('%screate-next-monday-event/' % self.event.get_absolute_url(), user='user')
+        resp = self.app.get('%screate-next-weekly-event/' % self.event.get_absolute_url(), user='user')
         resp.form.submit()
 
         event = self.event.event_set.get()
