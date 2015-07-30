@@ -8,7 +8,8 @@
 <div class="pull-right form-inline page-actions">
   {% if can_update %}
   <a href="{% url 'project-update' project.slug %}" class="btn btn-default">
-    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> {% trans "Change" %}
+    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+    {% trans "Change" %}
   </a>
   {% endif %}
 </div>

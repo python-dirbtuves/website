@@ -18,7 +18,9 @@ class Command(BaseCommand):
             content = template_remover.clean(content)
 
             exclude = (
+                html_linter.ProtocolMessage,
                 html_linter.TypeAttributeMessage,
+                html_linter.ExtraWhitespaceMessage,
             )
 
             lines = content.splitlines()
