@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-27 06:02-0500\n"
+"POT-Creation-Date: 2015-07-30 14:09-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -27,7 +27,7 @@ msgstr "Pavardė"
 msgid "Email address"
 msgstr "El. pašto adresas"
 
-#: accounts/forms.py:19 accounts/forms.py:47
+#: accounts/forms.py:19 accounts/forms.py:61
 msgid ""
 "Will be used for communication. If you want not to get any emails, leave "
 "this field empty."
@@ -35,13 +35,27 @@ msgstr ""
 "Bus naudojamas komunikacijai. Jei pageidaujate negauti jokių laiškų, "
 "palikite šį lauką tuščią."
 
-#: accounts/forms.py:25 accounts/forms.py:40
+#: accounts/forms.py:22 accounts/forms.py:52
+msgid ""
+"[Terms of serivce](http://pylab.lt/terms). Basically, you accept that all "
+"your creation and work done for Python workshops will belong to Python "
+"workshops."
+msgstr ""
+"[Paslaugų teikimo sąlygas](http://pylab.lt/terms). Iš esmės, Jūs sutinkate, "
+"kad visa Jūsų kūryba ir atliktas darbas Python dirbtuvėms priklausys Python "
+"dirbtuvėms."
+
+#: accounts/forms.py:29 accounts/forms.py:47
 msgid "Default"
 msgstr "Numatytoji"
 
-#: accounts/forms.py:39 accounts/models.py:11
+#: accounts/forms.py:50 accounts/models.py:11
 msgid "Language"
 msgstr "Kalba"
+
+#: accounts/forms.py:51 accounts/models.py:12
+msgid "Accept terms of service"
+msgstr "Sutikti su paslaugų teikimo sąlygomis"
 
 #: accounts/templates/accounts/login.html:9
 #: accounts/templates/accounts/login.html:24 website/templates/base.html:36
@@ -97,6 +111,34 @@ msgstr "Profilio nustatymai"
 msgid "Save"
 msgstr "Saugoti"
 
+#: core/models.py:15 core/models.py:43
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: core/models.py:16 core/models.py:47
+msgid "Description"
+msgstr "Aprašymas"
+
+#: core/models.py:31
+msgid "Other event"
+msgstr "Kitas renginys"
+
+#: core/models.py:32
+msgid "Project development"
+msgstr "Projekto vystymas"
+
+#: core/models.py:33
+msgid "Initial meeting"
+msgstr "Pradinis susitikimas"
+
+#: core/models.py:34
+msgid "Weekly meeting"
+msgstr "Savaitinis susitikimas"
+
+#: core/models.py:49
+msgid "OpenStreetMap iframe src link."
+msgstr "OpenStreetMap iframe src nuoroda."
+
 #: settings/base.py:23
 msgid "Lithuanian"
 msgstr "Lietuvių"
@@ -105,7 +147,7 @@ msgstr "Lietuvių"
 msgid "English"
 msgstr "Anglų"
 
-#: website/forms.py:16
+#: website/forms.py:17
 msgid ""
 "Describe your project idea. You can use [Markdown](http://daringfireball.net/"
 "projects/markdown/syntax){:target=_blank} markup."
@@ -113,56 +155,17 @@ msgstr ""
 "Apibūdinkite savo projekto idėją. Galite naudoti [Žymėjimų kalbą](http://"
 "daringfireball.net/projects/markdown/syntax){:target=_blank}."
 
-
 #: website/menus.py:18 website/templates/base.html:14
 msgid "Summer Python Workshop"
 msgstr "Vasaros Python dirbtuvės"
 
-#: website/models.py:15
-msgid "Title"
-msgstr "Pavadinimas"
-
-#: website/models.py:16
-msgid "Description"
-msgstr "Aprašymas"
+#: website/menus.py:19
+msgid "About"
+msgstr "Apie"
 
 #: website/templates/base.html:34
 msgid "Logout"
 msgstr "Atsijungti"
-
-#: website/templates/website/project_details.html:11
-msgid "Change"
-msgstr "Redaguoti"
-
-#: website/templates/website/project_list.html:8
-msgid "Suggest new project idea"
-msgstr "Pasiūlyti naują projekto idėją"
-
-#: website/templates/website/project_list.html:15
-msgid "Project idea"
-msgstr "Projekto idėja"
-
-#: website/templates/website/project_list.html:27
-msgid "No suggested projects yet."
-msgstr "Kol kas nėra pasiūlytų projektų."
-
-#: website/views.py:35
-#, python-format
-msgid "Project „%s“ created."
-msgstr "Projektas „%s“ sukurtas."
-
-#: website/views.py:41
-msgid "Suggest new project"
-msgstr "Pasiūlyti naują projektą"
-
-#: website/views.py:56
-#, python-format
-msgid "Project „%s“ updated."
-msgstr "Projektas „%s“ atnaujintas."
-
-#: website/menus.py:19
-msgid "About"
-msgstr "Apie"
 
 #: website/templates/website/about.html:7
 msgid "About Summer Python Workshop"
@@ -218,6 +221,12 @@ msgid ""
 "devoted\n"
 "    to clarify aims and user stories for the chosen project."
 msgstr ""
+"Kiekvienos Python dirbtuvės prasideda pradiniu susitikimu, per kurį\n"
+"    dalyviai balsuoja, kurį projektą jie norėtų įgyvendinti šių dirbtuvių "
+"metu.\n"
+"    Pradinis susitikimas yra truputį ilgesnis, nei įprasti savaitiniai "
+"susitikimai ir pagrinde skirti pasirinkto projekto tikslų bei panaudos "
+"scenarijų išgryninimui."
 
 #: website/templates/website/about.html:34
 msgid ""
@@ -285,3 +294,33 @@ msgstr ""
 "serverių, patalpų nuomos, komunalinių mokesčių, hakatonų organizavimo "
 "sąnaudos, taip pat gali būti samdomi etatiniai Python dirbtuvių "
 "programuotojai."
+
+#: website/templates/website/project_details.html:11
+msgid "Change"
+msgstr "Redaguoti"
+
+#: website/templates/website/project_list.html:8
+msgid "Suggest new project idea"
+msgstr "Pasiūlyti naują projekto idėją"
+
+#: website/templates/website/project_list.html:15
+msgid "Project idea"
+msgstr "Projekto idėja"
+
+#: website/templates/website/project_list.html:27
+msgid "No suggested projects yet."
+msgstr "Kol kas nėra pasiūlytų projektų."
+
+#: website/views.py:35
+#, python-format
+msgid "Project „%s“ created."
+msgstr "Projektas „%s“ sukurtas."
+
+#: website/views.py:41
+msgid "Suggest new project"
+msgstr "Pasiūlyti naują projektą"
+
+#: website/views.py:56
+#, python-format
+msgid "Project „%s“ updated."
+msgstr "Projektas „%s“ atnaujintas."

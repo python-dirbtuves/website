@@ -8,7 +8,9 @@ import pylab.accounts.models as accounts_models
 class SettingsTests(django_webtest.WebTest):
     def setUp(self):
         super().setUp()
-        auth_models.User.objects.create_user('u1')
+        u1 = auth_models.User.objects.create_user('u1')
+        u1.profile.accepted_terms = True
+        u1.profile.save()
 
     def test_user_settings(self):
         resp = self.app.get('/accounts/settings/', user='u1')
@@ -47,3 +49,17 @@ class SettingsTests(django_webtest.WebTest):
         resp = self.app.get('/accounts/settings/', user='u1')
         # Website interface is displayed in lithuanian
         self.assertTrue(b'Saugoti' in resp.content)
+
+    def test_requirement_to_accept_terms_of_service(self):
+        auth_models.User.objects.create_user('u2_not_accepted_terms_yet')
+        resp = self.app.get('/accounts/settings/', user='u2_not_accepted_terms_yet')
+        resp.form['language'] = 'en'
+        resp = resp.form.submit()
+        # Don't allow to save unless user accepts terms of service
+        self.assertEqual(resp.status_int, 200)
+        self.assertTrue(b'has-error' in resp.content)
+        resp.form['language'] = 'en'
+        resp.form['accepted_terms'].checked = True
+        resp = resp.form.submit()
+        # Allow to save settings changes because user accepted terms of service
+        self.assertEqual(resp.status_int, 302)

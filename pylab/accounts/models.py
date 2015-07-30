@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 class UserProfile(models.Model):
     user = models.OneToOneField(auth_models.User, related_name='profile')
     language = models.CharField(_('Language'), max_length=7, choices=settings.LANGUAGES, default='', blank=True)
+    accepted_terms = models.BooleanField(_('Accept terms of service'), default=False)
 
 
 @receiver(post_save, sender=auth_models.User)

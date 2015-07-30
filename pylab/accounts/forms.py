@@ -13,10 +13,14 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = accounts_models.UserProfile
-        fields = ('first_name', 'last_name', 'email', 'language')
+        fields = ('first_name', 'last_name', 'email', 'language', 'accepted_terms')
         help_texts = {
             'email': _(
                 "Will be used for communication. If you want not to get any emails, leave this field empty."
+            ),
+            'accepted_terms': _(
+                "[Terms of serivce](http://pylab.lt/terms). Basically, you accept that all your "
+                "creation and work done for Python workshops will belong to Python workshops."
             ),
         }
 
@@ -26,6 +30,9 @@ class UserProfileForm(forms.ModelForm):
         self.fields['email'].initial = self.instance.user.email
         self.fields['first_name'].initial = self.instance.user.first_name
         self.fields['last_name'].initial = self.instance.user.last_name
+        self.fields['accepted_terms'].required = True
+        if self.instance.accepted_terms:
+            self.fields.pop('accepted_terms')
 
     def save(self, *args, **kwargs):
         super(UserProfileForm, self).save(*args, **kwargs)
@@ -41,6 +48,10 @@ class SignupForm(forms.ModelForm):
     ) + tuple(settings.LANGUAGES)
 
     language = forms.ChoiceField(label=_('Language'), required=False, choices=LANGUAGE_CHOICES)
+    accepted_terms = forms.BooleanField(label=_('Accept terms of service'), required=True, help_text=_(
+        "[Terms of serivce](http://pylab.lt/terms). Basically, you accept that all your "
+        "creation and work done for Python workshops will belong to Python workshops."
+    ))
 
     class Meta:
         model = auth_models.User
@@ -58,4 +69,5 @@ class SignupForm(forms.ModelForm):
         user.email = self.cleaned_data['email']
         user.save()
         user.profile.language = self.cleaned_data['language']
+        user.profile.accepted_terms = self.cleaned_data['accepted_terms']
         user.profile.save()
