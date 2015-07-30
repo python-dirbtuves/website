@@ -25,6 +25,8 @@ setup(
         'docutils',
         'exportrecipe',
         'pytz',
+        'html_linter',
+        'template-remover',
     ],
     classifiers=[
         'Development Status :: 1 - Planning',
