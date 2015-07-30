@@ -24,6 +24,8 @@ setup(
         'mock',
         'docutils',
         'exportrecipe',
+        'html_linter',
+        'template-remover',
     ],
     classifiers=[
         'Development Status :: 1 - Planning',
