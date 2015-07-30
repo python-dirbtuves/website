@@ -5,13 +5,17 @@ from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
 
+def get_templates():  # pragma: no cover
+    return (settings.PROJECT_DIR / 'pylab').glob('**/templates/**/*.html')
+
+
 class Command(BaseCommand):
     help = 'Lint html templates'
 
     def handle(self, *args, **options):
         errors_found = 0
 
-        for template in (settings.PROJECT_DIR / 'pylab').glob('**/templates/**/*.html'):
+        for template in get_templates():
             with template.open() as f:
                 content = f.read()
 
