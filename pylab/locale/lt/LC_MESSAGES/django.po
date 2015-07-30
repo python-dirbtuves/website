@@ -37,11 +37,11 @@ msgstr ""
 
 #: accounts/forms.py:22 accounts/forms.py:52
 msgid ""
-"[Terms of serivce](http://pylab.lt/terms). Basically, you accept that all "
+"[Terms of serivce](http://pylab.lt/terms/). Basically, you accept that all "
 "your creation and work done for Python workshops will belong to Python "
 "workshops."
 msgstr ""
-"[Paslaugų teikimo sąlygas](http://pylab.lt/terms). Iš esmės, Jūs sutinkate, "
+"[Paslaugų teikimo sąlygas](http://pylab.lt/terms/). Iš esmės, Jūs sutinkate, "
 "kad visa Jūsų kūryba ir atliktas darbas Python dirbtuvėms priklausys Python "
 "dirbtuvėms."
 

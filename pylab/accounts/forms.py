@@ -19,7 +19,7 @@ class UserProfileForm(forms.ModelForm):
                 "Will be used for communication. If you want not to get any emails, leave this field empty."
             ),
             'accepted_terms': _(
-                "[Terms of serivce](http://pylab.lt/terms). Basically, you accept that all your "
+                "[Terms of serivce](http://pylab.lt/terms/). Basically, you accept that all your "
                 "creation and work done for Python workshops will belong to Python workshops."
             ),
         }
@@ -49,7 +49,7 @@ class SignupForm(forms.ModelForm):
 
     language = forms.ChoiceField(label=_('Language'), required=False, choices=LANGUAGE_CHOICES)
     accepted_terms = forms.BooleanField(label=_('Accept terms of service'), required=True, help_text=_(
-        "[Terms of serivce](http://pylab.lt/terms). Basically, you accept that all your "
+        "[Terms of serivce](http://pylab.lt/terms/). Basically, you accept that all your "
         "creation and work done for Python workshops will belong to Python workshops."
     ))
 
