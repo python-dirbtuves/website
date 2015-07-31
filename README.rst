@@ -22,7 +22,8 @@ Contacts
 Development environment
 =======================
 
-You need to create database manually::
+Execute these commands in Ubuntu 14.04 or greater to prepare your environment
+for development::
 
   $ createdb pylab
   $ make
@@ -119,12 +120,12 @@ you have to be careful with.
 To avoid refactoring issues, we keep all project data access logic in single
 Django app called ``core``. Also this helps us to better manage dependencies
 between apps. Since ``core`` contains data access logic which is lowest layer
-according to *multilayered architecture*, this means, that is is very likely,
+according to *multilayered architecture*, this means, that it is very likely,
 that most of the code will depend on this app. So since ``core`` tend to be
 referenced by many other modules and apps, we keep ``core`` lean.
 
 ``website`` app is another special case and it belongs to *application* and
-*presentation* layers. This means that no other apps can ``website`` depend on
+*presentation* layers. This means that no other apps can depend on
 ``website``, but ``website`` should depend on all other apps. In other words,
 ``website`` works like top level app with purpose to connect all components in
 order to assemble whole project.
