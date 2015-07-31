@@ -57,6 +57,7 @@ def run_tests(args):
         '--with-doctest',
         '--doctest-tests',
         '--noinput',
+        '--match=^test',  # Default regex matches functions like user_passes_test
     ] + args.paths
 
     if args.profile:
@@ -84,6 +85,11 @@ def run_flake8(args):
         '--exclude=migrations',
         '--ignore=E501,E241',
     ] + list(get_paths(args.paths))
+    return subprocess.call(cmd)
+
+
+def run_htmllint(args):
+    cmd = ['bin/django', 'htmllint']
     return subprocess.call(cmd)
 
 
@@ -123,6 +129,9 @@ def main(args=None):
 
     if retcode == 0:
         retcode = run_flake8(args)
+
+    if retcode == 0:
+        retcode = run_htmllint(args)
 
     if retcode == 0:
         retcode = run_pylint(args)
