@@ -10,6 +10,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/ico" href="{% static "img/favicon.ico" %}">
 
     <title>{% trans "Summer Python Workshop" %}</title>
 
@@ -25,11 +26,9 @@
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="collapse navbar-collapse">
-          <div class="logo">
-		    <a href="/">
+		    <a class="navbar-brand" href="/" style="padding-top:1px">
 			  <img src="{% static 'img/logo.png' %}" style="width:45px;height:50px">
 			</a> 
-		  </div>
           <ul class="nav navbar-nav pull-right">
             {% if request.user.is_authenticated %}
             <li><a href="{% url 'accounts_settings' %}">
