@@ -56,3 +56,14 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('event-details', args=[self.starts.year, self.starts.month, self.starts.day, self.slug])
+
+
+class Attendance(models.Model):
+    attendee = models.ForeignKey(User)
+    event = models.ForeignKey(Event)
+    responce = models.PositiveSmallIntegerField(choices=(
+        (0, _('No')),
+        (1, _('Yes')),
+        (2, _('Maybe'))
+    ), default=2
+    )
