@@ -65,5 +65,4 @@ class Attendance(models.Model):
         (0, _('No')),
         (1, _('Yes')),
         (2, _('Maybe'))
-    ), default=2
-    )
+    ), default=2)
