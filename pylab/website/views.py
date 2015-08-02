@@ -5,7 +5,7 @@ from django.utils.translation import ugettext
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from pylab.core.models import Project, Event
+from pylab.core.models import Project, Event, Attendance
 from pylab.website.helpers import formrenderer
 from pylab.website.helpers.decorators import superuser_required
 from pylab.website.services import weeklyevents
@@ -71,7 +71,8 @@ def about(request):
 
 def event_details(request, year, month, day, slug):
     event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
-    return render(request, 'website/event_details.html', {'event': event})
+    attendance = Attendance.objects.all().filter(event=event)
+    return render(request, 'website/event_details.html', {'event': event, "attendance": attendance})
 
 
 @superuser_required

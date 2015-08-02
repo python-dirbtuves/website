@@ -43,4 +43,13 @@
 
 {{ event.description|markdown }}
 
+{% if request.user.is_authenticated %}
+  <div class="attendance">
+    <ul>
+  {% for attendee in attendance %}
+    <li>{{ attendee.attendee.username }} <span>{{ attendee.get_response_display }}</span></li>
+  {% endfor %}
+    </ul>
+  </div>
+{% endif %}
 {% endblock %}
