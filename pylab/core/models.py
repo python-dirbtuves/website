@@ -69,4 +69,7 @@ class Attendance(models.Model):
     )
     attendee = models.ForeignKey(User)
     event = models.ForeignKey(Event)
-    responce = models.PositiveSmallIntegerField(choices=ATTENDANCE_CHOICES, default=0)
+    response = models.PositiveSmallIntegerField(choices=ATTENDANCE_CHOICES, default=0)
+
+    class Meta:
+        unique_together = ('attendee', 'event')
