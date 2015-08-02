@@ -59,10 +59,14 @@ class Event(models.Model):
 
 
 class Attendance(models.Model):
+    NO = 2
+    YES = 1
+    MAYBE = 0
+    ATTENDANCE_CHOICES = (
+        (NO, _('No')),
+        (YES, _('Yes')),
+        (MAYBE, _('Maybe'))
+    )
     attendee = models.ForeignKey(User)
     event = models.ForeignKey(Event)
-    responce = models.PositiveSmallIntegerField(choices=(
-        (0, _('No')),
-        (1, _('Yes')),
-        (2, _('Maybe'))
-    ), default=2)
+    responce = models.PositiveSmallIntegerField(choices=ATTENDANCE_CHOICES, default=0)
