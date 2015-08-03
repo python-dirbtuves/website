@@ -8,18 +8,27 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Project(models.Model):
-    created = CreationDateTimeField()
-    modified = ModificationDateTimeField()
-    author = models.ForeignKey(User)
-    slug = AutoSlugField(populate_from='title')
-    title = models.CharField(_("Title"), max_length=255)
-    description = models.TextField(_("Description"))
+	PROJECT_STATUS_CHOICES = (
+		('Proposed', _('Proposed')),
+		('In progress', _('In progress')), 
+		('Suspended', _('Suspended')), 
+		('Implemented', _('Implemented')),
+	)
+	created = CreationDateTimeField()
+	modified = ModificationDateTimeField()
+	author = models.ForeignKey(User)
+	slug = AutoSlugField(populate_from='title')
+	title = models.CharField(_("Title"), max_length=255)
+	description = models.TextField(_("Description"))
+	url = models.URLField(_("URL"), blank=True)
+	project_status_description = models.TextField(_("Status Description"), blank=True)
+	project_status = models.CharField(max_length=50, choices=PROJECT_STATUS_CHOICES, default='Proposed') 
 
-    def __str__(self):
-        return self.title
+	def __str__(self):
+		return self.title
 
-    def get_absolute_url(self):
-        return reverse('project-details', args=[self.slug])
+	def get_absolute_url(self):
+		return reverse('project-details', args=[self.slug])
 
 
 class Event(models.Model):

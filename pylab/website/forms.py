@@ -9,14 +9,22 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ('title', 'description')
+        fields = ('title', 'description', 'url', 'project_status', 'project_status_description')
         widgets = {
             'description': forms.Textarea(attrs={'rows': 16}),
+            'project_status_description': forms.Textarea(attrs={'rows': 6}),
         }
         help_texts = {
             'description': _(
                 "Describe your project idea. You can use "
                 "[Markdown](http://daringfireball.net/projects/markdown/syntax){:target=_blank} markup."
+            ),
+            'url': _(
+                "Implementation (repository) URL."
+            ),
+            'project_status_description': _(
+               "Describe project status. For example if the project was suspended " 
+               "an explanation why it was suspended should be added." 
             ),
         }
 

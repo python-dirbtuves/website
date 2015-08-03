@@ -14,9 +14,20 @@
   {% endif %}
 </div>
 
-<h1>{{ project.title }}</h1>
+<h1>{{ project.title }}
+  <small><span class="label label-default">{{ project.project_status }}</span></small>
+</h1>
 
-{{ project.description|markdown }}
+<p><strong>Project description </strong>{{ project.description|markdown }}</p>
+
+{% if project.url %}
+  <p><strong>Project URL </strong>{{ project.url }}</p>
+{% endif %}
+
+{% if project.project_status_description %}
+  <p><strong>Project status description </strong>
+  {{ project.project_status_description|capfirst }}</p>
+{% endif %}
 
 {% endblock %}
 
