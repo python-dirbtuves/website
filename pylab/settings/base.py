@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.auth',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.admin',
 )
 
@@ -200,7 +201,6 @@ TEMPLATE_CONTEXT_PROCESSORS += [
 ]
 
 INSTALLED_APPS += (
-    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
