@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+{% load markdown from websitetags %}
+
+{% block content %}
+
+<h1>{{ voting_poll.title }}</h1>
+
+<p>{{ voting_poll.description|markdown }}</p>
+
+<form action='.' method='post'>{% csrf_token %}
+    {{ form.management_form }}
+    {% for field in form %}
+      <div class="fieldWrapper">
+        {{ field.errors }}
+        <p> {{ field }} {{ field.instance.project.title }} </p>
+      </div>
+    {% endfor %}
+    <button>{% trans "vote!" %}</button>
+</form>
+
+{% endblock %}

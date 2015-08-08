@@ -77,7 +77,7 @@ class Vote(models.Model):
     voting_poll = models.ForeignKey(VotingPoll)
     voter = models.ForeignKey(User)
     project = models.ForeignKey(Project)
-    points = models.IntegerField(_("Points"), null=True)
+    points = models.PositiveIntegerField(_("Points"), null=True, blank=True)
 
     def __str__(self):
         return '%s, %s' % (self.voting_poll.title, self.voter.get_full_name() or self.voter.get_username())
