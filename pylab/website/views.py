@@ -101,19 +101,19 @@ def create_weekly_event(request, year, month, day, slug):
 @login_required
 def voting_page(request, voting_poll_slug):
     voting_poll = get_object_or_404(VotingPoll, slug=voting_poll_slug)
-    VotePointsFormSet = modelformset_factory(Vote, fields=('points',), extra=0,)
+    VotePointsFormSet = modelformset_factory(Vote, form=website_forms.VotePointsForm, extra=0,)
     vote_qs = Vote.objects.filter(voter=request.user, voting_poll__slug=voting_poll_slug)
 
     if request.method == 'POST':
-        form = VotePointsFormSet(request.POST, queryset=vote_qs)
-        if form.is_valid():
-            instances = form.save()
+        formset = VotePointsFormSet(request.POST, queryset=vote_qs)
+        if formset.is_valid():
+            instances = formset.save()
             messages.success(request, ugettext("Vote for „%s“ voting poll was saved successfully." % voting_poll))
             return redirect('project-list')
     else:
-        form = VotePointsFormSet(queryset=vote_qs)
+        formset = VotePointsFormSet(queryset=vote_qs)
 
     return render(request, 'website/voting_page.html', {
         'voting_poll': voting_poll,
-        'form': form,
+        'formset': formset,
     })

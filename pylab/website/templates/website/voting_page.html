@@ -2,21 +2,34 @@
 {% load trans from i18n %}
 {% load markdown from websitetags %}
 
+
 {% block content %}
 
-<h1>{{ voting_poll.title }}</h1>
+  <h1>{{ voting_poll.title }}</h1>
 
-<p>{{ voting_poll.description|markdown }}</p>
+  <p>{{ voting_poll.description|markdown }}</p>
 
-<form action='.' method='post'>{% csrf_token %}
-    {{ form.management_form }}
-    {% for field in form %}
-      <div class="fieldWrapper">
-        {{ field.errors }}
-        <p> {{ field }} {{ field.instance.project.title }} </p>
-      </div>
-    {% endfor %}
-    <button>{% trans "vote!" %}</button>
-</form>
+  <div class='vote-points-form'>
+    <form action='.' method='post'>{% csrf_token %}
+      {{ formset.management_form }}
+      {% for form in formset %}
+        <div class="fieldWrapper">
+          {{ form.errors }}
+          <p>
+            {% for hidden in form.hidden_fields %}
+              {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+              <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field }} <a href="{{ form.instance.project.get_absolute_url }}">{{ form.instance.project.title }}</a>
+              </div>
+            {% endfor %}
+          </p>
+        </div>
+      {% endfor %}
+      <button class="btn btn-primary vote-button">{% trans "Vote" %}</button>
+    </form>
+  </div>
 
 {% endblock %}

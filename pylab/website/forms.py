@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
-from pylab.core.models import Project, Event
+from pylab.core.models import Project, Event, Vote
 
 
 class ProjectForm(forms.ModelForm):
@@ -49,3 +49,12 @@ class NextWeeklyEventForm(forms.ModelForm):
 
         if title and starts:
             self.check_existing_events(title, starts)
+
+
+class VotePointsForm(forms.ModelForm):
+    class Meta:
+        model = Vote
+        fields = ('points',)
+        widgets = {
+            'points': forms.NumberInput(attrs={'max': 99, 'class': 'vote-points-input'}),
+        }
