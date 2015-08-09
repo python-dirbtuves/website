@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load trans from i18n %}
+{% load static from staticfiles %}
 {% load markdown from websitetags %}
 
 
@@ -10,6 +11,10 @@
   <p>{{ voting_poll.description|markdown }}</p>
 
   <div class="vote-points-form">
+  {% trans "Points left: " %}
+  <b><span id="points-left"></span></b>
+  <span id="total-points">{{ total_points }}</span>
+
   <form action="." method="post">{% csrf_token %}
   {{ formset.management_form }}
   {% for form in formset %}
@@ -33,3 +38,8 @@
   </div>
 
 {% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/update_points_left.js" %}"></script>
+{% endblock %}
+

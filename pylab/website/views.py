@@ -116,4 +116,5 @@ def voting_page(request, voting_poll_slug):
     return render(request, 'website/voting_page.html', {
         'voting_poll': voting_poll,
         'formset': formset,
+        'total_points': 15,
     })
