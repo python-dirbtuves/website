@@ -107,7 +107,7 @@ def voting_page(request, voting_poll_slug):
     if request.method == 'POST':
         formset = VotePointsFormSet(request.POST, queryset=vote_qs)
         if formset.is_valid():
-            instances = formset.save()
+            formset.save()
             messages.success(request, ugettext("Vote for „%s“ voting poll was saved successfully." % voting_poll))
             return redirect('project-list')
     else:

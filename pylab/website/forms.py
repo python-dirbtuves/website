@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from django import forms
 from django.utils.translation import ugettext
@@ -63,5 +63,5 @@ class VotePointsForm(forms.ModelForm):
 
     def save(self, commit=True, *args, **kwargs):
         vote = super(VotePointsForm, self).save(commit=False, *args, **kwargs)
-        vote.voted = datetime.now()
+        vote.voted = datetime.datetime.now()
         vote.save()

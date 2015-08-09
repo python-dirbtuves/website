@@ -17,6 +17,7 @@ setup(
         'django-allauth',
         'factory_boy',
         'fake-factory',
+        'ipdb',
         'unidecode',
         'markdown',
         'yattag',
