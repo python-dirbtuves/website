@@ -101,7 +101,13 @@ def create_weekly_event(request, year, month, day, slug):
 @login_required
 def voting_page(request, voting_poll_slug):
     voting_poll = get_object_or_404(VotingPoll, slug=voting_poll_slug)
-    VotePointsFormSet = modelformset_factory(Vote, form=website_forms.VotePointsForm, extra=0,)
+    total_points = 15
+    VotePointsFormSet = modelformset_factory(
+        Vote,
+        form=website_forms.VotePointsForm,
+        formset=website_forms.BaseTotalPointsFormset,
+        extra=0,
+    )
     vote_qs = Vote.objects.filter(voter=request.user, voting_poll__slug=voting_poll_slug)
 
     if request.method == 'POST':
@@ -116,5 +122,5 @@ def voting_page(request, voting_poll_slug):
     return render(request, 'website/voting_page.html', {
         'voting_poll': voting_poll,
         'formset': formset,
-        'total_points': 15,
+        'total_points': total_points,
     })

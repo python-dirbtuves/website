@@ -16,6 +16,7 @@
   <span id="total-points">{{ total_points }}</span>
 
   <form action="." method="post">{% csrf_token %}
+  {{ formset.non_form_errors }}
   {{ formset.management_form }}
   {% for form in formset %}
     <div class="form-group">
