@@ -67,9 +67,12 @@ class Attendance(models.Model):
         (YES, _('Yes')),
         (MAYBE, _('Maybe'))
     )
+
     attendee = models.ForeignKey(User)
-    event = models.ForeignKey(Event)
-    response = models.PositiveSmallIntegerField(choices=ATTENDANCE_CHOICES, default=0)
+    event = models.ForeignKey('Event')
+    response = models.PositiveSmallIntegerField(choices=ATTENDANCE_CHOICES, null=True)
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
 
     def __str__(self):
         return self.event.title + ' : ' + self.attendee.username + ' : ' + self.get_response_display()

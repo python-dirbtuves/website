@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
-from pylab.core.models import Project, Event
+from pylab.core.models import Project, Event, Attendance
 
 
 class ProjectForm(forms.ModelForm):
@@ -22,6 +22,7 @@ class ProjectForm(forms.ModelForm):
 
 
 class NextWeeklyEventForm(forms.ModelForm):
+
     class Meta:
         model = Event
         fields = ('title', 'starts', 'ends', 'address', 'osm_map_link', 'description')
@@ -49,3 +50,10 @@ class NextWeeklyEventForm(forms.ModelForm):
 
         if title and starts:
             self.check_existing_events(title, starts)
+
+
+class AttendanceForm(forms.ModelForm):
+
+    class Meta:
+        model = Attendance
+        fields = ['response', ]

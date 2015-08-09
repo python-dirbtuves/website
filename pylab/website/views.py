@@ -71,8 +71,27 @@ def about(request):
 
 def event_details(request, year, month, day, slug):
     event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
-    attendance = Attendance.objects.all().filter(event=event)
-    return render(request, 'website/event_details.html', {'event': event, "attendance": attendance})
+    attendance = Attendance.objects.filter(event=event)
+    if request.method == 'POST':
+        form = website_forms.AttendanceForm(request.POST)
+        if form.is_valid():
+            instance = Attendance.objects.get(event=event, attendee=request.user)
+            instance.response=form.cleaned_data['response']
+            instance.save()
+            # instance.save()
+            # attendance_response = form.save(commit=False)
+            # attendance_response.event = event
+            # attendance_response.attendee = request.user
+            # attendance_response.save()
+            return redirect(event)
+    else:
+        instance, created = Attendance.objects.get_or_create(event=event, attendee=request.user,
+                                                             defaults={'response': 1})
+        form = website_forms.AttendanceForm(instance=instance, initial={'response': instance.response})
+    return render(request, 'website/event_details.html', {'event': event, "attendances": attendance,
+                                                          'form': formrenderer.render(request, form,
+                                                                                      title=ugettext('Are you coming?'),
+                                                                                      submit=ugettext('Submit'))})
 
 
 @superuser_required
