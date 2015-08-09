@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
@@ -58,3 +60,8 @@ class VotePointsForm(forms.ModelForm):
         widgets = {
             'points': forms.NumberInput(attrs={'max': 99, 'class': 'vote-points-input'}),
         }
+
+    def save(self, commit=True, *args, **kwargs):
+        vote = super(VotePointsForm, self).save(commit=False, *args, **kwargs)
+        vote.voted = datetime.now()
+        vote.save()

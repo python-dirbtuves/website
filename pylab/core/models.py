@@ -73,7 +73,7 @@ class VotingPoll(models.Model):
 class Vote(models.Model):
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
-    vote_time = models.DateTimeField(null=True)
+    voted = models.DateTimeField(null=True)
     voting_poll = models.ForeignKey(VotingPoll)
     voter = models.ForeignKey(User)
     project = models.ForeignKey(Project)
