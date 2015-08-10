@@ -1,8 +1,11 @@
+import datetime
+
 from django import forms
+from django.forms.models import BaseModelFormSet
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
-from pylab.core.models import Project, Event
+from pylab.core.models import Project, Event, Vote
 
 
 class ProjectForm(forms.ModelForm):
@@ -49,3 +52,32 @@ class NextWeeklyEventForm(forms.ModelForm):
 
         if title and starts:
             self.check_existing_events(title, starts)
+
+
+class VotePointsForm(forms.ModelForm):
+    class Meta:
+        model = Vote
+        fields = ('points',)
+        widgets = {
+            'points': forms.NumberInput(attrs={'max': 99, 'class': 'vote-points-input'}),
+        }
+
+    def save(self, commit=True, *args, **kwargs):
+        vote = super(VotePointsForm, self).save(commit=False, *args, **kwargs)
+        vote.voted = datetime.datetime.now()
+        vote.save()
+
+
+class BaseTotalPointsFormset(BaseModelFormSet):
+    def clean(self, *args, **kwargs):
+        super(BaseTotalPointsFormset, self).clean(*args, **kwargs)
+        total_points = 0
+
+        for form in self.forms:
+            if form.cleaned_data['points']:
+                total_points += form.cleaned_data['points']
+
+        if total_points < 0 or total_points > 15:
+            raise forms.ValidationError(ugettext(
+                "Sum of voting points is out of bounds. Expected from 0 to 15, but got %s."
+            ) % total_points)

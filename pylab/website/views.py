@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.forms.models import modelformset_factory
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.utils.translation import ugettext
 
-from pylab.core.models import Project, Event
+from pylab.core.models import Project, Event, Vote, VotingPoll
 from pylab.website.helpers import formrenderer
 from pylab.website.helpers.decorators import superuser_required
 from pylab.website.services import weeklyevents
@@ -94,4 +95,32 @@ def create_weekly_event(request, year, month, day, slug):
             description=ugettext("Create new weekly event for \"%s\".") % parent_event.title,
             submit=ugettext("Announce"),
         ),
+    })
+
+
+@login_required
+def voting_page(request, voting_poll_slug):
+    voting_poll = get_object_or_404(VotingPoll, slug=voting_poll_slug)
+    total_points = 15
+    VotePointsFormSet = modelformset_factory(
+        Vote,
+        form=website_forms.VotePointsForm,
+        formset=website_forms.BaseTotalPointsFormset,
+        extra=0,
+    )
+    vote_qs = Vote.objects.filter(voter=request.user, voting_poll__slug=voting_poll_slug)
+
+    if request.method == 'POST':
+        formset = VotePointsFormSet(request.POST, queryset=vote_qs)
+        if formset.is_valid():
+            formset.save()
+            messages.success(request, ugettext("Vote for „%s“ voting poll was saved successfully." % voting_poll))
+            return redirect('project-list')
+    else:
+        formset = VotePointsFormSet(queryset=vote_qs)
+
+    return render(request, 'website/voting_page.html', {
+        'voting_poll': voting_poll,
+        'formset': formset,
+        'total_points': total_points,
     })

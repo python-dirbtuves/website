@@ -55,5 +55,7 @@
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script src="{% static "typeahead.bundle.min.js" %}"></script>
     <script data-main="{% static "js/main.js" %}" src="{% static "require.min.js" %}"></script>
+    {% block scripts %}
+    {% endblock %}
   </body>
 </html>
