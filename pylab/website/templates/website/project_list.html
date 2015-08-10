@@ -20,7 +20,7 @@
     <tr>
       <td>
         <a href="{% url 'project-details' project.slug %}">{{ project.title }}</a>
-          <span class="label label-default">{{ project.project_status }}</span>
+          <span class="label label-default">{{ project.get_status_display }}</span>
       </td>
     </tr>
     {% endfor %}

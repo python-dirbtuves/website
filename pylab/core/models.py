@@ -8,27 +8,32 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Project(models.Model):
-	PROJECT_STATUS_CHOICES = (
-		('Proposed', _('Proposed')),
-		('In progress', _('In progress')), 
-		('Suspended', _('Suspended')), 
-		('Implemented', _('Implemented')),
-	)
-	created = CreationDateTimeField()
-	modified = ModificationDateTimeField()
-	author = models.ForeignKey(User)
-	slug = AutoSlugField(populate_from='title')
-	title = models.CharField(_("Title"), max_length=255)
-	description = models.TextField(_("Description"))
-	url = models.URLField(_("URL"), blank=True)
-	project_status_description = models.TextField(_("Status Description"), blank=True)
-	project_status = models.CharField(max_length=50, choices=PROJECT_STATUS_CHOICES, default='Proposed') 
+    PROPOSED = 0
+    IN_PROGRESS = 1
+    SUSPENDED = 2
+    IMPLEMENTED = 3
+    PROJECT_STATUS_CHOICES = (
+        (PROPOSED, _("Proposed")),
+        (IN_PROGRESS, _('In progress')),
+        (SUSPENDED, _('Suspended')),
+        (IMPLEMENTED, _('Implemented')),
+    )
 
-	def __str__(self):
-		return self.title
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+    author = models.ForeignKey(User)
+    slug = AutoSlugField(populate_from='title')
+    title = models.CharField(_("Title"), max_length=255)
+    description = models.TextField(_("Description"))
+    url = models.URLField(_("URL"), blank=True)
+    status_description = models.TextField(_("Status Description"), blank=True)
+    status = models.PositiveSmallIntegerField(choices=PROJECT_STATUS_CHOICES, default=PROPOSED)
 
-	def get_absolute_url(self):
-		return reverse('project-details', args=[self.slug])
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('project-details', args=[self.slug])
 
 
 class Event(models.Model):

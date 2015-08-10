@@ -15,18 +15,18 @@
 </div>
 
 <h1>{{ project.title }}
-  <small><span class="label label-default">{{ project.project_status }}</span></small>
+  <small><span class="label label-default">{{ project.get_status_display }}</span></small>
 </h1>
 
 <p><strong>Project description </strong>{{ project.description|markdown }}</p>
 
 {% if project.url %}
-  <p><strong>Project URL </strong>{{ project.url }}</p>
+  <p><strong>Implementation URL </strong>{{ project.url }}</p>
 {% endif %}
 
-{% if project.project_status_description %}
+{% if project.status_description %}
   <p><strong>Project status description </strong>
-  {{ project.project_status_description|capfirst }}</p>
+  {{ project.status_description|capfirst }}</p>
 {% endif %}
 
 {% endblock %}
