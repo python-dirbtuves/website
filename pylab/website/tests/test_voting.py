@@ -37,3 +37,13 @@ class VotingTests(WebTest):
         for v in Vote.objects.all():
             self.assertLess(time_before_vote, v.voted)
             self.assertGreater(time_after_vote, v.voted)
+
+        resp = self.app.get('/vote/test-voting-poll/', user='u1')
+        self.assertEqual(resp.status_int, 200)
+
+        time_before_vote = datetime.datetime.now()
+
+        resp.form['form-0-points'].value = 30  # Vote points sum should be less or equal to 15
+        resp.form['form-1-points'].value = 20
+        resp = resp.form.submit()
+        self.assertEqual(resp.status_int, 200)
