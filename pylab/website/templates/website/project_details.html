@@ -20,11 +20,11 @@
 <p><strong>{% trans "Project description" %}</strong>{{ project.description|markdown }}</p>
 
 {% if project.url %}
-  <p><strong>Implementation URL </strong>{{ project.url }}</p>
+  <p><strong>{% trans "Implementation URL" %}</strong>{{ project.url }}</p>
 {% endif %}
 
 {% if project.status_description %}
-  <p><strong>Project status description </strong>
+  <p><strong>{% trans "Project status description" %}</strong>
   {{ project.status_description|capfirst }}</p>
 {% endif %}
 
