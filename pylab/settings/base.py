@@ -260,3 +260,11 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     },
 }
+
+
+# django-comments
+# http://django-contrib-comments.readthedocs.org
+
+INSTALLED_APPS += (
+    'django_comments',
+)

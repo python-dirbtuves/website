@@ -20,6 +20,7 @@ urlpatterns = [
 urlpatterns += [
     url(r'^accounts/', include('pylab.accounts.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^comments/', include('django_comments.urls')),
 ]
 
 if settings.DEBUG:

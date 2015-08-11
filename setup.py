@@ -15,6 +15,7 @@ setup(
         'django-webtest',
         'django-autoslug',
         'django-allauth',
+        'django-contrib-comments',
         'factory_boy',
         'fake-factory',
         'unidecode',
