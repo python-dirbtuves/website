@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+{% load static from staticfiles %}
+{% load markdown from websitetags %}
+
+
+{% block content %}
+
+  <h1>{{ voting_poll.title }}</h1>
+
+  <p>{{ voting_poll.description|markdown }}</p>
+
+  <div class="vote-points-form">
+  {% trans "Points left: " %}
+  <b><span id="points-left"></span></b>
+  <span id="total-points">{{ total_points }}</span>
+
+  <form action="." method="post">{% csrf_token %}
+  {{ formset.non_form_errors }}
+  {{ formset.management_form }}
+  {% for form in formset %}
+    <div class="form-group">
+    {{ form.errors }}
+    <p>
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+      {{ field.errors }}
+      {{ field }} <a href="{{ form.instance.project.get_absolute_url }}">{{ form.instance.project.title }}</a>
+      </div>
+    {% endfor %}
+    </p>
+    </div>
+  {% endfor %}
+  <button class="btn btn-primary vote-button">{% trans "Vote" %}</button>
+  </form>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/update_points_left.js" %}"></script>
+{% endblock %}
+
