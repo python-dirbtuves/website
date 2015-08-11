@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^events/%s/create-next-weekly-event/$' % event, views.create_weekly_event, name='create-weekly-event'),
     url(r'^about/$', views.about, name='about'),
     url(r'^vote/(?P<voting_poll_slug>%s)/$' % slug, views.voting_page, name='voting-page'),
+    url(r'^voting-poll/(?P<voting_poll_slug>%s)/$' % slug, views.voting_poll_details, name='voting-poll-details'),
 ]
 
 urlpatterns += [

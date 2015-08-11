@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+{% load static from staticfiles %}
+{% load markdown from websitetags %}
+
+
+{% block content %}
+
+<H1> {{ voting_poll.title }}
+</H1>
+<p>{{ voting_poll.description }}
+</p>
+  <div>
+    {% for project in projects %}
+    <p>  
+      <b>{{ project.vote__points__sum }}</b>
+      <a href="{% url 'project-details' project.slug %}">{{ project.title }}</a>
+    </p>
+    {% endfor %}
+  </div>
+{% endblock %}
