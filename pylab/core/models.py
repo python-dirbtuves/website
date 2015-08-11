@@ -8,12 +8,26 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Project(models.Model):
+    PROPOSED = 0
+    IN_PROGRESS = 1
+    SUSPENDED = 2
+    IMPLEMENTED = 3
+    PROJECT_STATUS_CHOICES = (
+        (PROPOSED, _("Proposed")),
+        (IN_PROGRESS, _('In progress')),
+        (SUSPENDED, _('Suspended')),
+        (IMPLEMENTED, _('Implemented')),
+    )
+
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
     author = models.ForeignKey(User)
     slug = AutoSlugField(populate_from='title')
     title = models.CharField(_("Title"), max_length=255)
     description = models.TextField(_("Description"))
+    url = models.URLField(_("URL"), blank=True)
+    status_description = models.TextField(_("Status Description"), blank=True)
+    status = models.PositiveSmallIntegerField(choices=PROJECT_STATUS_CHOICES, default=PROPOSED)
 
     def __str__(self):
         return self.title

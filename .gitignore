@@ -17,3 +17,5 @@ __pycache__
 eggs/*
 .Python
 pip-selfcheck.json
+*.swp
+*.swo
