@@ -22,13 +22,19 @@ Contacts
 Development environment
 =======================
 
-You need to create database manually::
+You need Ubuntu 14.04 or greater. In Ubuntu terminal execute these commands::
 
-  $ createdb pylab
-  $ make
-  $ bin/django migrate
-  $ make testall
-  $ make run
+  $ sudo apt-get install python-dev python3-dev 
+  $ sudo apt-get install postgresql
+  $ sudo -u postgres psql
+  # create role <unix_username>;
+  # alter role <unix_username> with superuser;
+  # alter role <unix_username> with login;
+  $ createdb pylab          # Creates Postgresql database with name ``pylab``
+  $ make                    # Downloads and configures python packages
+  $ bin/django migrate      # Creates tables in the database
+  $ make testall            # Checks if everything works properly
+  $ make run                # Runs localserver 
 
 
 Project structure
