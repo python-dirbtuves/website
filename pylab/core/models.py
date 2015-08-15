@@ -70,3 +70,28 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('event-details', args=[self.starts.year, self.starts.month, self.starts.day, self.slug])
+
+
+class VotingPoll(models.Model):
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+    author = models.ForeignKey(User)
+    slug = AutoSlugField(populate_from='title')
+    title = models.CharField(_("Title"), max_length=255)
+    description = models.TextField(_("Description"), blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Vote(models.Model):
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+    voted = models.DateTimeField(null=True)
+    voting_poll = models.ForeignKey(VotingPoll)
+    voter = models.ForeignKey(User)
+    project = models.ForeignKey(Project)
+    points = models.PositiveIntegerField(_("Points"), null=True, blank=True)
+
+    def __str__(self):
+        return '%s, %s' % (self.voting_poll.title, self.voter.get_full_name() or self.voter.get_username())

@@ -18,6 +18,7 @@ setup(
         'django-contrib-comments',
         'factory_boy',
         'fake-factory',
+        'ipdb',
         'unidecode',
         'markdown',
         'yattag',
