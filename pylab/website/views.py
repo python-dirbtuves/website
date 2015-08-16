@@ -76,22 +76,21 @@ def event_details(request, year, month, day, slug):
         form = website_forms.AttendanceForm(request.POST)
         if form.is_valid():
             instance = Attendance.objects.get(event=event, attendee=request.user)
-            instance.response=form.cleaned_data['response']
+            instance.response = form.cleaned_data['response']
             instance.save()
-            # instance.save()
-            # attendance_response = form.save(commit=False)
-            # attendance_response.event = event
-            # attendance_response.attendee = request.user
-            # attendance_response.save()
             return redirect(event)
     else:
-        instance, created = Attendance.objects.get_or_create(event=event, attendee=request.user,
-                                                             defaults={'response': 1})
-        form = website_forms.AttendanceForm(instance=instance, initial={'response': instance.response})
-    return render(request, 'website/event_details.html', {'event': event, "attendances": attendance,
-                                                          'form': formrenderer.render(request, form,
-                                                                                      title=ugettext('Are you coming?'),
-                                                                                      submit=ugettext('Submit'))})
+        if request.user.is_authenticated():
+            instance, created = Attendance.objects.get_or_create(event=event, attendee=request.user,  # pylint: disable=unused-variable
+                                                                 defaults={'response': 1})
+            form = website_forms.AttendanceForm(instance=instance, initial={'response': instance.response})
+            return render(request, 'website/event_details.html',
+                          {'event': event,
+                           'attendances': attendance,
+                           'form': formrenderer.render(request, form, title=ugettext('Are you coming?'),
+                                                       submit=ugettext('Submit'))})
+        else:
+            return render(request, 'website/event_details.html', {'event': event, 'attendances': attendance})
 
 
 @superuser_required
