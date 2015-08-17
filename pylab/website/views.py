@@ -131,7 +131,8 @@ def voting_page(request, voting_poll_slug):
 def voting_poll_details(request, voting_poll_slug):
     voting_poll = get_object_or_404(VotingPoll, slug=voting_poll_slug)
 
-    projects = Project.objects.filter(vote__voting_poll=voting_poll).annotate(Sum('vote__points')).order_by('-vote__points__sum')
+    projects = Project.objects.filter(vote__voting_poll=voting_poll)
+    projects = projects.annotate(Sum('vote__points')).order_by('-vote__points__sum')
 
     return render(request, 'website/voting_poll_details.html', {
         'voting_poll': voting_poll,

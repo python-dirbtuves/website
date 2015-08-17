@@ -6,13 +6,13 @@
 
 {% block content %}
 
-<H1> {{ voting_poll.title }}
-</H1>
+<h1> {{ voting_poll.title }}
+</h1>
 <p>{{ voting_poll.description }}
 </p>
   <div>
     {% for project in projects %}
-    <p>  
+    <p>
       <b>{{ project.vote__points__sum }}</b>
       <a href="{% url 'project-details' project.slug %}">{{ project.title }}</a>
     </p>
