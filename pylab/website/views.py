@@ -126,6 +126,7 @@ def voting_page(request, voting_poll_slug):
         'total_points': total_points,
     })
 
+
 @login_required
 def voting_poll_details(request, voting_poll_slug):
     voting_poll = get_object_or_404(VotingPoll, slug=voting_poll_slug)
