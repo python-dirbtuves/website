@@ -7,6 +7,7 @@ help:
 	@echo 'make test       run project test suite'
 	@echo 'make testall    run all tests, pyflakes, pylint and coverage'
 	@echo 'make tags       build ctags file'
+	@echo 'make lint       check coding style'
 
 ubuntu:
 	sudo apt-get update
@@ -21,6 +22,10 @@ testall: bin/django ; scripts/runtests.py pylab
 
 tags: bin/django ; bin/ctags -v --tag-relative
 
+lint: bin/django
+	bin/flake8 --exclude=migrations --ignore=E501,E241 pylab
+	bin/django htmllint
+	bin/pylint --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" pylab
 
 buildout.cfg: ; ./scripts/genconfig.py config/env/development.cfg
 
