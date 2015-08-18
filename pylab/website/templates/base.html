@@ -31,8 +31,8 @@
           </a>
           <ul class="nav navbar-nav pull-right">
             {% if request.user.is_authenticated %}
-            <li><a href="{% url 'accounts_settings' %}">
-              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <li><a class="navbar-profile-a" href="{% url 'accounts_settings' %}">
+              <img class="navbar-avatar-img" src="{{ user.profile.get_avatar_url }}">
               <strong>{% username request.user %}</strong>
             </a></li>
             <li><a href="{% url 'accounts_logout' %}">{% trans "Logout" %}</a></li>
