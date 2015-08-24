@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load trans from i18n %}
 {% load markdown from websitetags %}
+{% load username from accountstags %}
 
 
 {% block content %}
@@ -42,5 +43,19 @@
 {% endif %}
 
 {{ event.description|markdown }}
+
+{% if request.user.is_authenticated %}
+  <div class="attendance">
+    <ul>
+  {% for attendance in attendances %}
+    <li>{% username attendance.attendee %} <span>{{ attendance.get_response_display }}</span></li>
+  {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<a id="response"></a>
+{{ form|safe }}
+
 
 {% endblock %}

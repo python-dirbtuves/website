@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils.translation import ugettext
 
-from pylab.core.models import Project, Event, Vote, VotingPoll
+from pylab.core.models import Project, Event, Attendance, Vote, VotingPoll
 from pylab.website.helpers import formrenderer
 from pylab.website.helpers.decorators import superuser_required
 from pylab.website.services import weeklyevents
@@ -72,7 +72,25 @@ def about(request):
 
 def event_details(request, year, month, day, slug):
     event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
-    return render(request, 'website/event_details.html', {'event': event})
+    attendances = Attendance.objects.filter(event=event)
+    if request.method == 'POST':
+        form = website_forms.AttendanceForm(request.POST,
+                                            instance=Attendance.objects.get(event=event, attendee=request.user))
+        if form.is_valid():
+            form.save()
+            return redirect(event)
+    else:
+        if request.user.is_authenticated():
+            instance, created = Attendance.objects.get_or_create(event=event, attendee=request.user)  # pylint: disable=unused-variable
+            form = website_forms.AttendanceForm(instance=instance,
+                                                initial={'response': instance.response if instance.response else 1})
+            return render(request, 'website/event_details.html',
+                          {'event': event,
+                           'attendances': attendances,
+                           'form': formrenderer.render(request, form, title=ugettext('Are you coming?'),
+                                                       submit=ugettext('Submit'))})
+        else:
+            return render(request, 'website/event_details.html', {'event': event, 'attendances': attendances})
 
 
 @superuser_required

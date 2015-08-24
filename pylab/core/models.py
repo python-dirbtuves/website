@@ -61,6 +61,7 @@ class Event(models.Model):
     description = models.TextField(_("Description"), blank=True)
     address = models.CharField(max_length=255, blank=True)
     osm_map_link = models.URLField(max_length=255, blank=True, help_text=_("OpenStreetMap iframe src link."))
+    attendees = models.ManyToManyField(User, through='Attendance', related_name='attendees')
 
     class Meta:
         unique_together = ('starts', 'slug')
@@ -95,3 +96,26 @@ class Vote(models.Model):
 
     def __str__(self):
         return '%s, %s' % (self.voting_poll.title, self.voter.get_full_name() or self.voter.get_username())
+
+
+class Attendance(models.Model):
+    NO = 3
+    YES = 2
+    MAYBE = 1
+    ATTENDANCE_CHOICES = (
+        (NO, _('No')),
+        (YES, _('Yes')),
+        (MAYBE, _('Maybe'))
+    )
+
+    attendee = models.ForeignKey(User)
+    event = models.ForeignKey('Event')
+    response = models.PositiveSmallIntegerField(choices=ATTENDANCE_CHOICES, null=True)
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+
+    def __str__(self):
+        return self.event.title + ' : ' + self.attendee.username + ' : ' + self.get_response_display()
+
+    class Meta:
+        unique_together = ('attendee', 'event')

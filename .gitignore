@@ -19,3 +19,4 @@ eggs/*
 pip-selfcheck.json
 *.swp
 *.swo
+share/*

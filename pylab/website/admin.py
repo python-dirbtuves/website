@@ -10,7 +10,7 @@ from django.contrib.auth.views import redirect_to_login
 
 import allauth.socialaccount.admin as allauth
 
-import pylab.core.models as core_models
+from pylab.core.models import Project, Event, Attendance, VotingPoll
 
 
 class AdminSite(admin.AdminSite):
@@ -51,9 +51,10 @@ site = AdminSite()
 
 site.register(auth_models.User, auth_admin.UserAdmin)
 
-site.register(core_models.Project)
-site.register(core_models.Event, EventAdmin)
-site.register(core_models.VotingPoll)
+site.register(Project)
+site.register(Event, EventAdmin)
+site.register(VotingPoll)
+site.register(Attendance)
 
 site.register(allauth.SocialApp, allauth.SocialAppAdmin)
 site.register(allauth.SocialToken, allauth.SocialTokenAdmin)

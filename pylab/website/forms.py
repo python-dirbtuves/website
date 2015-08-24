@@ -5,7 +5,7 @@ from django.forms.models import BaseModelFormSet
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
-from pylab.core.models import Project, Event, Vote
+from pylab.core.models import Project, Event, Attendance, Vote
 
 
 class ProjectForm(forms.ModelForm):
@@ -25,6 +25,7 @@ class ProjectForm(forms.ModelForm):
 
 
 class NextWeeklyEventForm(forms.ModelForm):
+
     class Meta:
         model = Event
         fields = ('title', 'starts', 'ends', 'address', 'osm_map_link', 'description')
@@ -81,3 +82,10 @@ class BaseTotalPointsFormset(BaseModelFormSet):
             raise forms.ValidationError(ugettext(
                 "Sum of voting points is out of bounds. Expected from 0 to 15, but got %s."
             ) % total_points)
+
+
+class AttendanceForm(forms.ModelForm):
+
+    class Meta:
+        model = Attendance
+        fields = ['response', ]
