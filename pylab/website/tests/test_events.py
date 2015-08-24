@@ -1,7 +1,6 @@
 import datetime
 
 from django_webtest import WebTest
-
 from django.contrib.auth.models import User, AnonymousUser
 
 from pylab.core.models import Event
@@ -21,13 +20,9 @@ class EventTests(WebTest):
         )
 
     def test_event_details_page(self):
-
         resp = self.app.get('/events/2015/07/29/test-title/', user=AnonymousUser())
-
         self.assertEqual(resp.status_int, 200)
-
         resp = self.app.get('/events/2015/07/29/test-title/', user=self.user)
-
         self.assertEqual(resp.status_int, 200)
 
     def test_event_response(self):
@@ -35,6 +30,5 @@ class EventTests(WebTest):
         form = resp.form
         form['response'] = 2  # Yes
         resp = form.submit().follow()
-        print(resp)
         self.assertEqual(resp.status_int, 200)
         assert '<li>u1 <span>Yes</span></li>' in resp
