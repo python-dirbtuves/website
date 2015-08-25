@@ -124,3 +124,9 @@ def voting_page(request, voting_poll_slug):
         'formset': formset,
         'total_points': total_points,
     })
+
+
+def voting_poll_list(request):
+    return render(request, 'website/voting_poll_list.html', {
+        'votingPolls': VotingPoll.objects.all(),
+    })
