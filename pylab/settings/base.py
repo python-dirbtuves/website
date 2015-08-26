@@ -268,3 +268,9 @@ SOCIALACCOUNT_PROVIDERS = {
 INSTALLED_APPS += (
     'django_comments',
 )
+
+INSTALLED_APPS += (
+    'pylab.custom_comment_app',
+)
+
+COMMENTS_APP = 'pylab.custom_comment_app'

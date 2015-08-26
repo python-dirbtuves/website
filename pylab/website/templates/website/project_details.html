@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% load trans blocktrans from i18n %}
 {% load markdown from websitetags %}
 {% load comments %}
@@ -22,11 +23,11 @@
 <p><strong>{% trans "Project description" %}</strong>{{ project.description|markdown }}</p>
 
 {% if project.url %}
-  <p><strong>{% trans "Implementation URL" %}</strong>{{ project.url }}</p>
+  <p><strong>{% trans "Implementation URL " %}</strong>{{ project.url }}</p>
 {% endif %}
 
 {% if project.status_description %}
-  <p><strong>{% trans "Project status description" %}</strong>
+  <p><strong>{% trans "Project status description " %}</strong>
   {{ project.status_description|capfirst }}</p>
 {% endif %}
 
@@ -58,6 +59,23 @@
           </div>
           <div class="panel-body">{{ comment.comment }}  </div>
         </div>
+
+        {% if user.is_authenticated %}
+          {% get_comment_form for project as form %}
+          <form action="{% comment_form_target %}" method="post">
+          {% csrf_token %}
+          {{ form.comment }}
+          {{ form.content_type }}
+          {{ form.object_pk }}
+          {{ form.timestamp }}
+          {{ form.security_hash }}
+          <input type="hidden" name="next" value="{% url 'project-details' project.slug %}">
+          <p><input type="submit" name="submit" value="Reply"></p>
+          </form>
+        {% else %}
+          <p>Please <a href="{% url 'accounts_login' %}">log in</a> to reply to comment.</p>
+        {% endif %}
+
       </div>
     </div>
   </div>
