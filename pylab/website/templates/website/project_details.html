@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-
-
 {% load trans blocktrans from i18n %}
-{% load markdown from websitetags %}
+{% load static from staticfiles %}
 {% load comments %}
+{% load markdown from websitetags %}
 
 {% block content %}
 
 <div class="pull-right form-inline page-actions">
   {% if can_update %}
-  <a href="{% url 'project-update' project.slug %}" class="btn btn-default">
+  <a href="{% url "project-update" project.slug %}" class="btn btn-default">
     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
     {% trans "Change" %}
   </a>
@@ -17,10 +16,10 @@
 </div>
 
 <h1>{{ project.title }}
-  <small><span class="label label-default">{{ project.get_status_display }}</span></small>
+  <span class="label label-default h1-label">{{ project.get_status_display }}</span>
 </h1>
 
-<p><strong>{% trans "Project description" %}</strong>{{ project.description|markdown }}</p>
+<p></strong>{{ project.description|markdown }}</p>
 
 {% if project.url %}
   <p><strong>{% trans "Implementation URL " %}</strong>{{ project.url }}</p>
@@ -31,54 +30,29 @@
   {{ project.status_description|capfirst }}</p>
 {% endif %}
 
+
 {% if user.is_authenticated %}
   {% get_comment_form for project as form %}
-  <form action="{% comment_form_target %}" method="post">
-  {% csrf_token %}
-  {{ form.comment }}
-  {{ form.content_type }}
-  {{ form.object_pk }}
-  {{ form.timestamp }}
-  {{ form.security_hash }}
-  <input type="hidden" name="next" value="{% url 'project-details' project.slug %}">
-  <p><input type="submit" name="submit" value="Add comment"></p>
-  </form>
+  <p>
+    <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+      {{ form.comment }}
+      {{ form.content_type }}
+      {{ form.object_pk }}
+      {{ form.timestamp }}
+      {{ form.security_hash }}
+      <input type="hidden" name="next" value="{% url "project-details" project.slug %}"><br>
+      <button class="btn btn-default btn-sm comment-btn" type="submit" name="submit">{% trans "Add comment" %}</button>
+    </form>
+  </p>
 {% else %}
-  <p>Please <a href="{% url 'accounts_login' %}">log in</a> to leave a comment.</p>
+  <p>{% trans "Please" %}<a href="{% url "accounts_login" %}">{% trans "log in</a> to leave a comment." %}</p>
 {% endif %}
 
-{% get_comment_list for project as comment_list %}
-{% for comment in comment_list %}
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-5">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <strong>{{ comment.user_name }}</strong>
-            <span class="text-muted">{{ comment.submit_date }} </span>
-          </div>
-          <div class="panel-body">{{ comment.comment }}  </div>
-        </div>
+{% include "website/comments.html" with object=project %}
 
-        {% if user.is_authenticated %}
-          {% get_comment_form for project as form %}
-          <form action="{% comment_form_target %}" method="post">
-          {% csrf_token %}
-          {{ form.comment }}
-          {{ form.content_type }}
-          {{ form.object_pk }}
-          {{ form.timestamp }}
-          {{ form.security_hash }}
-          <input type="hidden" name="next" value="{% url 'project-details' project.slug %}">
-          <p><input type="submit" name="submit" value="Reply"></p>
-          </form>
-        {% else %}
-          <p>Please <a href="{% url 'accounts_login' %}">log in</a> to reply to comment.</p>
-        {% endif %}
+{% endblock %}
 
-      </div>
-    </div>
-  </div>
-{%endfor %}
 
+{% block scripts %}
+  <script src="{% static "js/comment_reply.js" %}"></script>
 {% endblock %}
