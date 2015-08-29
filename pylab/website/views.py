@@ -1,3 +1,5 @@
+from django.utils.functional import curry
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
@@ -103,22 +105,25 @@ def create_weekly_event(request, year, month, day, slug):
 def voting_page(request, voting_poll_slug):
     voting_poll = get_object_or_404(VotingPoll, slug=voting_poll_slug)
     total_points = 15
-    VotePointsFormSet = modelformset_factory(
-        Vote,
-        form=website_forms.VotePointsForm,
+    ProjectPointsFormSet = modelformset_factory(
+        Project,
+        form=website_forms.ProjectPointsForm,
         formset=website_forms.BaseTotalPointsFormset,
         extra=0,
     )
-    vote_qs = Vote.objects.filter(voter=request.user, voting_poll__slug=voting_poll_slug)
+    ProjectPointsFormSet.form = staticmethod(curry(website_forms.ProjectPointsForm,
+        user=request.user,
+        voting_poll=voting_poll
+    ))
 
     if request.method == 'POST':
-        formset = VotePointsFormSet(request.POST, queryset=vote_qs)
+        formset = ProjectPointsFormSet(request.POST, queryset=voting_poll.projects.all())
         if formset.is_valid():
             formset.save()
             messages.success(request, ugettext("Vote for „%s“ voting poll was saved successfully." % voting_poll))
-            return redirect('project-list')
+            return redirect(voting_poll)
     else:
-        formset = VotePointsFormSet(queryset=vote_qs)
+        formset = ProjectPointsFormSet(queryset=voting_poll.projects.all())
 
     return render(request, 'website/voting_page.html', {
         'voting_poll': voting_poll,

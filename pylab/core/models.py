@@ -70,6 +70,12 @@ class VotingPoll(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('voting-poll-details', args=[self.slug])
+
+    def get_voting_url(self):
+        return reverse('voting-page', args=[self.slug])
+
 
 class Vote(models.Model):
     created = CreationDateTimeField()

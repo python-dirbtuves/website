@@ -17,11 +17,8 @@ class VotingTests(WebTest):
         p2 = Project.objects.create(author=u1, title='Test title 2', description='Test description')
 
         vp = VotingPoll.objects.create(author=u1, title='Test voting poll', description='Test description')
-
-        Vote.objects.create(voter=u1, voting_poll=vp, project=p1)
-        Vote.objects.create(voter=u1, voting_poll=vp, project=p2)
-        Vote.objects.create(voter=u2, voting_poll=vp, project=p1)
-        Vote.objects.create(voter=u2, voting_poll=vp, project=p2)
+        vp.projects.add(p1)
+        vp.projects.add(p2)
 
         resp = self.app.get('/vote/test-voting-poll/', user='u1')
         self.assertEqual(resp.status_int, 200)

@@ -20,7 +20,6 @@
   {{ formset.management_form }}
   {% for form in formset %}
     <div class="form-group">
-    {{ form.errors }}
     <p>
     {% for hidden in form.hidden_fields %}
       {{ hidden }}
@@ -28,7 +27,7 @@
     {% for field in form.visible_fields %}
       <div class="form-group">
       {{ field.errors }}
-      {{ field }} <a href="{{ form.instance.project.get_absolute_url }}">{{ form.instance.project.title }}</a>
+      {{ field }} <a href="{{ form.instance.get_absolute_url }}">{{ form.instance.title }}</a>
       </div>
     {% endfor %}
     </p>
