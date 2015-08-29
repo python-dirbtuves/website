@@ -65,6 +65,7 @@ class VotingPoll(models.Model):
     slug = AutoSlugField(populate_from='title')
     title = models.CharField(_("Title"), max_length=255)
     description = models.TextField(_("Description"), blank=True)
+    projects = models.ManyToManyField(Project)
 
     def __str__(self):
         return self.title
