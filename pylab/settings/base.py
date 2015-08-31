@@ -19,6 +19,8 @@ MEDIA_ROOT = str(PROJECT_DIR / 'var/www/media')
 STATIC_URL = '/static/'
 STATIC_ROOT = str(PROJECT_DIR / 'var/www/static')
 LANGUAGE_CODE = 'en'
+DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y-m-d H:i'
 LANGUAGES = (
     ('lt', _('Lithuanian')),
     ('en', _('English')),

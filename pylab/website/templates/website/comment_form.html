@@ -1,0 +1,19 @@
+{% load comments %}
+{% load trans from i18n %}
+
+
+{% if user.is_authenticated %}
+  {% get_comment_form for object as form %}
+  <form class="comment-form" action="{% comment_form_target %}" method="post">{% csrf_token %}
+    {{ form.comment }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="hidden" name="next" value="{% url "project-details" project.slug %}"><br>
+    <button class="btn btn-default btn-sm comment-btn" type="submit" name="submit">{% trans "Add comment" %}</button>
+  </form>
+  <span class="comment-reply"><button class="btn btn-xs btn-default">{% trans "Reply" %}</button></span>
+{% else %}
+  <p>{% trans "Please" %}<a href="{% url "accounts_login" %}">{% trans "log in</a> to leave a comment." %}</p>
+{% endif %}

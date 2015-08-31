@@ -1,0 +1,21 @@
+{% load comments %}
+{% load username from accountstags %}
+
+{% get_comment_list for object as comment_list %}
+{% for comment in comment_list %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 indent-comment">
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ level }}
+            <strong><img class="comment-avatar" src="{{ comment.user.profile.get_avatar_url }}">{% username comment.user %}</strong>
+            <span class="text-muted">{{ comment.submit_date }} </span>
+          </div>
+          <div class="panel-body">{{ comment.comment }}  </div>
+        {% include "website/comment_form.html" with object=comment %}
+        </div>
+        {% include "website/comments.html" with object=comment %}
+      </div>
+    </div>
+  </div>
+{%endfor %}

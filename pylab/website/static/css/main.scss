@@ -81,3 +81,42 @@ img.navbar-avatar-img {
     margin-top: -2px;
     padding-right: 2px;
 }
+
+// project-deails
+textarea#id_comment {
+    width: 540px;
+    height: 100px;
+    margin-left: 3px;
+}
+
+div.panel-heading {
+    padding: 8px 15px;
+}
+
+.comment-avatar {
+    padding-right: 12px;
+}
+
+form.comment-form {
+    display: none;
+}
+
+.comment-btn {
+    margin: 5px;
+}
+
+.h1-label {
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.container {
+    content: " ";
+    display: table;
+}
+
+.indent-comment {
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+}
