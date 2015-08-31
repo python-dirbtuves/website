@@ -156,3 +156,9 @@ def voting_poll_details(request, voting_poll_slug):
         'voting_poll': voting_poll,
         'projects': projects,
     })
+
+
+def voting_poll_list(request):
+    return render(request, 'website/voting_poll_list.html', {
+        'votingPolls': VotingPoll.objects.all(),
+    })

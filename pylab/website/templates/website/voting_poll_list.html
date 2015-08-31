@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load trans from i18n %}
+{% load static from staticfiles %}
+{% load markdown from websitetags %}
+
+
+{% block content %}
+
+
+{% if votingPolls %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>{% trans "Voting poll list: " %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for votingPoll in votingPolls %}
+    <tr>
+      <td>
+        <a href="{% url 'voting-page' votingPoll.slug %}">{{votingPoll.title}}</a>
+        <span class="label label-default">Author: {{votingPoll.author}}, created: {{votingPoll.created}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+  {% endfor %}
+
+{% else %}
+<div>
+  <p class="text-info">{% trans "No voting polls created yet." %}</p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+
