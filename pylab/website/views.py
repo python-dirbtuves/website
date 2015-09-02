@@ -1,4 +1,5 @@
 from django.contrib import messages
+
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 from django.shortcuts import get_object_or_404
@@ -68,7 +69,9 @@ def project_update(request, project_slug):
 
 
 def about(request):
-    return render(request, 'website/about.html', {})
+    return render(request, 'website/about.html', {
+        'events': Event.objects.all().exclude(parent_event=True)
+    })
 
 
 def event_details(request, year, month, day, slug):
