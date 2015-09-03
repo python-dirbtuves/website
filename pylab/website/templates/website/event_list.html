@@ -10,7 +10,8 @@
         {% for event in events %}
         <tr>
           <td>
-            <a href="/events/{{ event.starts.year }}/{{ event.starts.month }}/{{ event.starts.day }}/{{ event.slug }}/">{{ event.title }}</a>
+            <a href="{% url "event-details" event.starts.year event.starts.month event.starts.day event.slug %}">{{ event.title }}</a>
+
             <p>{{ event.description|truncatechars:100 }}</p>
           </td>
         </tr>

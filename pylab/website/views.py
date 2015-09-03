@@ -70,7 +70,13 @@ def project_update(request, project_slug):
 
 def about(request):
     return render(request, 'website/about.html', {
-        'events': Event.objects.all().exclude(parent_event=True)
+        'events': Event.objects.all().exclude(parent_event=True),
+    })
+
+
+def event_list(request):
+    return render(request, 'website/event_list.html', {
+        'events': Event.objects.all().exclude(parent_event=True),
     })
 
 
