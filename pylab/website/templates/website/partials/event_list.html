@@ -1,8 +1,6 @@
 {% load trans from i18n %}
 
 
-{% block content %}
-
 {% if events %}
   <h1>{% trans "Events" %}</h1>
     <table class="table">
@@ -23,5 +21,3 @@
   <p class="text-info">{% trans "No events yet." %}</p>
 </div>
 {% endif %}
-
-{% endblock %}
