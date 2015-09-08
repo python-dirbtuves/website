@@ -56,8 +56,10 @@ class NextWeeklyEventForm(forms.ModelForm):
 
 
 class ProjectPointsForm(forms.ModelForm):
-    points = forms.IntegerField(widget=forms.NumberInput(attrs={'max': 99, 'min': 0, 'class': 'vote-points-input'}),
-                                                         validators=[MinValueValidator(0)])
+    points = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'max': 99, 'min': 0, 'class': 'vote-points-input'}),
+        validators=[MinValueValidator(0)],
+    )
 
     def __init__(self, user, voting_poll, *args, **kwargs):
         self.user = user
@@ -73,8 +75,8 @@ class ProjectPointsForm(forms.ModelForm):
         model = Project
         fields = tuple()
 
-    def save(self, commit=True, *args, **kwargs):
-        vote, created = Vote.objects.get_or_create(
+    def save(self, commit=True, *args, **kwargs):  # pylint: disable=unused-argument
+        vote, created = Vote.objects.get_or_create(  # pylint: disable=unused-variable
             voter=self.user,
             project=self.instance,
             voting_poll=self.voting_poll

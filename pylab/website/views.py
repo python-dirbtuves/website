@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.utils.translation import ugettext
 from django.db.models import Sum
 
-from pylab.core.models import Project, Event, Vote, VotingPoll
+from pylab.core.models import Project, Event, VotingPoll
 from pylab.website.helpers import formrenderer
 from pylab.website.helpers.decorators import superuser_required
 from pylab.website.services import weeklyevents
@@ -111,10 +111,10 @@ def voting_page(request, voting_poll_slug):
         formset=website_forms.BaseTotalPointsFormset,
         extra=0,
     )
-    ProjectPointsFormSet.form = staticmethod(curry(website_forms.ProjectPointsForm,
+    ProjectPointsFormSet.form = staticmethod(curry(
+        website_forms.ProjectPointsForm,
         user=request.user,
-        voting_poll=voting_poll
-    ))
+        voting_poll=voting_poll))
 
     if request.method == 'POST':
         formset = ProjectPointsFormSet(request.POST, queryset=voting_poll.projects.all())
