@@ -1,15 +1,12 @@
 import datetime
 
 from django_webtest import WebTest
-from django.contrib.auth.models import User
 
 from pylab.core.models import Event
+from pylab.core.factories import EventFactory
 
 
 class AboutPageTests(WebTest):
-
-    def setUp(self):
-        self.user = User.objects.create(username='u1')
 
     def test_no_events_on_about_page(self):
         resp = self.app.get('/about/')
@@ -17,14 +14,14 @@ class AboutPageTests(WebTest):
         self.assertTrue(b'No events yet.' in resp.content)
 
     def test_event_list_on_about_page(self):
-        Event.objects.create(
-            author=self.user,
-            starts=datetime.datetime(2015, 9, 3),
-            ends=datetime.datetime(2015, 9, 3),
-            title='Test title',
-            osm_map_link='http://openstreetmap.org/',
-            description='Test description',
+        EventFactory(
+            event_type=Event.WEEKLY_MEETING,
+            title='Summer Python workshop',
+            slug='python-workshop',
+            starts=datetime.datetime(2015, 7, 30, 18, 0),
+            ends=datetime.datetime(2015, 7, 30, 20, 0),
         )
+
         resp = self.app.get('/about/')
         self.assertEqual(resp.status_int, 200)
-        self.assertTrue(b'Test title' in resp.content)
+        self.assertTrue(b'Summer Python workshop' in resp.content)
