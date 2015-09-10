@@ -68,7 +68,9 @@ def project_update(request, project_slug):
 
 
 def about(request):
-    return render(request, 'website/about.html', {})
+    return render(request, 'website/about.html', {
+        'events': Event.objects.all().exclude(parent_event=True),
+    })
 
 
 def event_details(request, year, month, day, slug):

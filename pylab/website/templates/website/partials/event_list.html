@@ -1,0 +1,23 @@
+{% load trans from i18n %}
+
+
+{% if events %}
+  <h1>{% trans "Events" %}</h1>
+    <table class="table">
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td>
+            <a href="{% url "event-details" event.starts.year event.starts.month event.starts.day event.slug %}">{{ event.title }}</a>
+
+            <p>{{ event.description|truncatechars:100 }}</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+<div>
+  <p class="text-info">{% trans "No events yet." %}</p>
+</div>
+{% endif %}
