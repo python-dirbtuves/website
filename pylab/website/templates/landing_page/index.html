@@ -1,80 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% load trans from i18n %}
 
-<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% block content %}
 
-    <title>Small Business - Start Bootstrap Template</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/small-business.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <img src="http://placehold.it/150x50&text=Logo" alt="">
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <!-- Page Content -->
     <div class="container">
 
         <!-- Heading Row -->
         <div class="row">
             <div class="col-md-8">
-                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">
+                <img class="img-responsive img-rounded" src="/static/img/dummy_space.png" alt="">
             </div>
             <!-- /.col-md-8 -->
             <div class="col-md-4">
-                <h1>Business Name or Tagline</h1>
-                <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-                <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
+                <h1>Python Workshop</h1>
+                <p>There will be posted the general information about Python Workshop, and also mentioned that everyone can attend regular meetups.</p>
             </div>
             <!-- /.col-md-4 -->
         </div>
@@ -86,7 +26,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="well text-center">
-                    This is a well that is a great spot for a business tagline or phone number for easy access!
+                    <h4><font color="2f71a9"><strong>Monday, September 14, 18:00</strong></font> Python workshop weekly meetup @Čiurlionio str. 13-1
+		<!-- Not an elegant way to add spaces -->
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="btn btn-primary btn-lg" href="#">More info</a>
+		    </h4>
                 </div>
             </div>
             <!-- /.col-lg-12 -->
@@ -96,21 +40,24 @@
         <!-- Content Row -->
         <div class="row">
             <div class="col-md-4">
-                <h2>Heading 1</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                <a class="btn btn-default" href="#">More Info</a>
+		<center><img src="static/img/dummy_img1.png" alt=""></center>
+                <h2>Weekly meetups</h2>
+                <p>General description of weekly meetups and the link to events page</p>
+                <a class="btn btn-default" href="#">Read more</a>
             </div>
             <!-- /.col-md-4 -->
             <div class="col-md-4">
-                <h2>Heading 2</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                <a class="btn btn-default" href="#">More Info</a>
+		<center><img src="static/img/dummy_img2.png" alt=""></center>
+                <h2>Open source projects</h2>
+                <p>General info about open source projects and the link to projects page</p>
+                <a class="btn btn-default" href="#">Read more</a>
             </div>
             <!-- /.col-md-4 -->
             <div class="col-md-4">
-                <h2>Heading 3</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                <a class="btn btn-default" href="#">More Info</a>
+		<center><img src="static/img/dummy_img3.png" alt=""></center>
+                <h2>Why Python?</h2>
+                <p>Short info on why we choose Python language and the link to Python.org</p>
+                <a class="btn btn-default" href="#">Read more</a>
             </div>
             <!-- /.col-md-4 -->
         </div>
@@ -118,11 +65,15 @@
 
         <!-- Footer -->
         <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
+		<br><br><br>
+		<center>
+                <a href="#"><img src="static/img/fb_logo.png" alt="">
+		&nbsp;&nbsp;
+                <a href="#"><img src="static/img/twitter_logo.png" alt="">
+		&nbsp;&nbsp;
+                <a href="#"><img src="static/img/pinterest_logo.png" alt="">
+		</center>
+		<br><br>
         </footer>
 
     </div>
@@ -134,6 +85,5 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-</body>
 
-</html>
+{% endblock %}
