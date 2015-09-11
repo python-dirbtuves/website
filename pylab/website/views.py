@@ -14,6 +14,12 @@ from pylab.website.services import weeklyevents
 import pylab.website.forms as website_forms
 
 
+def landing_page(request):
+    return render(request, 'landing_page/index3.html', {
+        'projects': Project.objects.all(),
+    })
+
+
 def project_list(request):
     return render(request, 'website/project_list.html', {
         'projects': Project.objects.all(),
