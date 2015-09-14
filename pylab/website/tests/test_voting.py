@@ -2,8 +2,6 @@ import datetime
 
 from django_webtest import WebTest
 
-from django.contrib.auth.models import User
-
 from pylab.core.factories import UserFactory, VotingPollFactory, ProjectFactory
 from pylab.core.models import Vote
 
