@@ -4,23 +4,24 @@ from django_webtest import WebTest
 
 from django.contrib.auth.models import User
 
-from pylab.core.models import Project, VotingPoll, Vote
+from pylab.core.factories import UserFactory, VotingPollFactory, ProjectFactory
+from pylab.core.models import Vote
 
 
 class VotingTests(WebTest):
 
     def test_voting_and_voting_poll_details_page(self):
-        u1 = User.objects.create(username='u1')
-        u2 = User.objects.create(username='u2')
+        u1 = UserFactory()
+        u2 = UserFactory()
 
-        p1 = Project.objects.create(author=u1, title='Test title 1', description='Test description')
-        p2 = Project.objects.create(author=u1, title='Test title 2', description='Test description')
+        p1 = ProjectFactory(author=u1)
+        p2 = ProjectFactory(author=u1)
 
-        vp = VotingPoll.objects.create(author=u1, title='Test voting poll', description='Test description')
+        vp = VotingPollFactory(author=u1)
         vp.projects.add(p1)
         vp.projects.add(p2)
 
-        resp = self.app.get('/vote/test-voting-poll/', user='u1')
+        resp = self.app.get(vp.get_voting_url(), user=u1)
         self.assertEqual(resp.status_int, 200)
 
         time_before_vote = datetime.datetime.now()
@@ -38,7 +39,7 @@ class VotingTests(WebTest):
             self.assertLess(time_before_vote, v.voted)
             self.assertGreater(time_after_vote, v.voted)
 
-        resp = self.app.get('/vote/test-voting-poll/', user='u2')
+        resp = self.app.get(vp.get_voting_url(), user=u2)
         self.assertEqual(resp.status_int, 200)
 
         time_before_vote = datetime.datetime.now()
@@ -56,7 +57,7 @@ class VotingTests(WebTest):
             self.assertLess(time_before_vote, v.voted)
             self.assertGreater(time_after_vote, v.voted)
 
-        resp = self.app.get('/voting-poll/test-voting-poll/', user='u1')
+        resp = self.app.get(vp.get_absolute_url(), user=u1)
         self.assertEqual(resp.status_int, 200)
 
         self.assertTrue(b'9' in resp.content)
