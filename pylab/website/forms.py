@@ -1,7 +1,6 @@
 import datetime
 
 from django import forms
-from django.core.validators import MinValueValidator
 from django.forms.models import BaseModelFormSet
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
@@ -57,8 +56,8 @@ class NextWeeklyEventForm(forms.ModelForm):
 
 class ProjectPointsForm(forms.ModelForm):
     points = forms.IntegerField(
+        min_value=0,
         widget=forms.NumberInput(attrs={'max': 99, 'min': 0, 'class': 'vote-points-input'}),
-        validators=[MinValueValidator(0)],
     )
 
     def __init__(self, user, voting_poll, *args, **kwargs):
