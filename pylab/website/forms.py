@@ -65,10 +65,11 @@ class ProjectPointsForm(forms.ModelForm):
         self.voting_poll = voting_poll
         super(ProjectPointsForm, self).__init__(*args, **kwargs)
 
-        vote_qs = Vote.objects.filter(voter=self.user, project__id=self.initial['id'])
-        if vote_qs.exists():
+        try:
             vote = Vote.objects.get(voter=self.user, project__id=self.initial['id'])
             self.fields['points'].initial = vote.points
+        except Vote.DoesNotExist:
+            pass
 
     class Meta:
         model = Project
