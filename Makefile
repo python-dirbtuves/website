@@ -12,9 +12,17 @@ help:
 ubuntu:
 	sudo apt-get update
 	sudo apt-get -y build-dep python-psycopg2
-	sudo apt-get -y install build-essential python-dev exuberant-ctags
+	sudo apt-get -y install build-essential python-dev exuberant-ctags virtualenv
 
-run: bin/django ; bin/django runserver
+postgresql:
+	sudo apt-get install postgresql
+	@read -p "Enter postgresql database role name (<unix_username>):" dbrole; \
+	sudo -u postgres psql -c "CREATE ROLE $$dbrole"; \
+	sudo -u postgres psql -c "ALTER ROLE $$dbrole with superuser"; \
+	sudo -u postgres psql -c "ALTER ROLE $$dbrole with login"; \
+	createdb pylab2
+
+run: bin/django ; bin/django runserver 0.0.0.0:8000
 
 test: bin/django ; bin/django test --settings=pylab.settings.testing --nologcapture
 
