@@ -15,7 +15,7 @@ import pylab.website.forms as website_forms
 
 
 def landing_page(request):
-    return render(request, 'landing_page/index.html', {
+    return render(request, 'website/index.html', {
         'projects': Project.objects.all(),
     })
 
