@@ -81,7 +81,7 @@ def about(request):
 
 def event_details(request, year, month, day, slug):
     event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
-    attendances = Attendance.objects.filter(event=event, response__in=[1, 2])
+    attendances = Attendance.objects.filter(event=event, response__in=[1, 2]).order_by('-response')
     if request.user.is_authenticated():
         try:
             instance = Attendance.objects.get(event=event, attendee=request.user)
