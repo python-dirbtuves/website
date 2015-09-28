@@ -115,7 +115,7 @@ class Attendance(models.Model):
     modified = ModificationDateTimeField()
 
     def __str__(self):
-        return self.event.title + ' : ' + self.attendee.username + ' : ' + self.get_response_display()
+        return '%s : %s : %s' % (self.event.title, self.attendee.username, self.get_response_display())
 
     class Meta:
         unique_together = ('attendee', 'event')
