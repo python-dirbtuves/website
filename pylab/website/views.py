@@ -14,6 +14,12 @@ from pylab.website.services import weeklyevents
 import pylab.website.forms as website_forms
 
 
+def landing_page(request):
+    return render(request, 'website/index.html', {
+        'projects': Project.objects.all(),
+    })
+
+
 def project_list(request):
     return render(request, 'website/project_list.html', {
         'projects': Project.objects.all(),
@@ -75,25 +81,29 @@ def about(request):
 
 def event_details(request, year, month, day, slug):
     event = get_object_or_404(Event, starts__year=year, starts__month=month, starts__day=day, slug=slug)
-    attendances = Attendance.objects.filter(event=event)
-    if request.method == 'POST':
-        form = website_forms.AttendanceForm(request.POST,
-                                            instance=Attendance.objects.get(event=event, attendee=request.user))
-        if form.is_valid():
-            form.save()
-            return redirect(event)
-    else:
-        if request.user.is_authenticated():
-            instance, created = Attendance.objects.get_or_create(event=event, attendee=request.user)  # pylint: disable=unused-variable
+    attendances = Attendance.objects.filter(event=event, response__in=[1, 2]).order_by('-response')
+    if request.user.is_authenticated():
+        try:
+            instance = Attendance.objects.get(event=event, attendee=request.user)
+        except Attendance.DoesNotExist:
+            instance = Attendance(event=event, attendee=request.user)
+        if request.method == 'POST':
+            form = website_forms.AttendanceForm(request.POST, instance=instance)
+            if form.is_valid():
+                form.save()
+                return redirect(event)
+        else:
             form = website_forms.AttendanceForm(instance=instance,
                                                 initial={'response': instance.response if instance.response else 1})
-            return render(request, 'website/event_details.html',
-                          {'event': event,
-                           'attendances': attendances,
-                           'form': formrenderer.render(request, form, title=ugettext('Are you coming?'),
-                                                       submit=ugettext('Submit'))})
-        else:
-            return render(request, 'website/event_details.html', {'event': event, 'attendances': attendances})
+        return render(request, 'website/event_details.html', {
+            'event': event,
+            'attendances': attendances,
+            'form': formrenderer.render(request, form, title=ugettext('Are you coming?'), submit=ugettext('Submit'))
+        })
+    return render(request, 'website/event_details.html', {
+        'event': event,
+        'attendances': attendances,
+    })
 
 
 @superuser_required

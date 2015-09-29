@@ -44,7 +44,21 @@
 
 {{ event.description|markdown }}
 
+{% if event.event_set.exists %}
+  <h3>Subevents</h3>
+  <ul>
+  {% for subevent in event.event_set.all %}
+    <li><a href="{{ subevent.get_absolute_url }}">{{ subevent }}</a></li>
+  {% endfor %}
+  </ul>
+{% endif %}
+
+
 {% if request.user.is_authenticated %}
+<a id="response"></a>
+{{ form|safe }}
+
+  <h3>Participants:</h3>
   <div class="attendance">
     <ul>
   {% for attendance in attendances %}
@@ -53,9 +67,6 @@
     </ul>
   </div>
 {% endif %}
-
-<a id="response"></a>
-{{ form|safe }}
 
 
 {% endblock %}

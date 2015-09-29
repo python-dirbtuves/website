@@ -26,6 +26,10 @@ You need Ubuntu 14.04 or greater. In Ubuntu terminal execute these commands::
 
   $ sudo apt-get install python-dev python3-dev 
   $ sudo apt-get install postgresql
+  $ sudo apt-get install python-pip   # Python package management system
+  $ sudo pip install virtualenv       # A tool to create isolated Python environments
+  $ sudo apt-get install libpq.dev    # info: https://packages.debian.org/jessie/libpq-dev
+  $ sudo apt-get install g++          # C++ compiler for some Python modules
   $ sudo -u postgres psql
   # create role <unix_username>;
   # alter role <unix_username> with superuser;
