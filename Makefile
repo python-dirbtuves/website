@@ -22,6 +22,8 @@ testall: bin/django ; scripts/runtests.py pylab
 
 tags: bin/django ; bin/ctags -v --tag-relative
 
+clean: ; rm -rf bin .coverage develop-eggs include .installed.cfg lib pylab_lt.egg-info parts
+
 lint: bin/django
 	bin/flake8 --exclude=migrations --ignore=E501,E241 pylab
 	bin/django htmllint
@@ -40,4 +42,4 @@ var/www/static var/www/media: ; mkdir -p $@
 bin/django: bin/buildout buildout.cfg $(wildcard config/*.cfg) $(wildcard config/env/*.cfg) mkdirs ; $<
 	bin/django compilemessages
 
-.PHONY: all help run mkdirs test testall tags
+.PHONY: all help run mkdirs test testall tags clean
