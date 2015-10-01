@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^projects/create/$', views.project_create, name='create-project'),
     url(r'^projects/(?P<project_slug>%s)/$' % slug, views.project_details, name='project-details'),
     url(r'^projects/(?P<project_slug>%s)/update/$' % slug, views.project_update, name='project-update'),
+    url(r'^events/$', views.event_list, name='event-list'),
     url(r'^events/%s/$' % event, views.event_details, name='event-details'),
     url(r'^events/%s/create-next-weekly-event/$' % event, views.create_weekly_event, name='create-weekly-event'),
     url(r'^about/$', views.about, name='about'),
