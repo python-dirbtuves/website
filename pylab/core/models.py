@@ -80,9 +80,16 @@ class VotingPoll(models.Model):
     slug = AutoSlugField(populate_from='title')
     title = models.CharField(_("Title"), max_length=255)
     description = models.TextField(_("Description"), blank=True)
+    projects = models.ManyToManyField(Project)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('voting-poll-details', args=[self.slug])
+
+    def get_voting_url(self):
+        return reverse('voting-page', args=[self.slug])
 
 
 class Vote(models.Model):

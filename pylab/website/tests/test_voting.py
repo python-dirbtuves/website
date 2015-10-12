@@ -35,9 +35,9 @@ class VotingTests(WebTest):
 
         time_after_vote = datetime.datetime.now()
 
-        self.assertEqual(list(Vote.objects.values_list('points', flat=True)), [3, 2])
+        self.assertEqual(list(Vote.objects.filter(voter=self.u1).values_list('points', flat=True)), [3, 2])
 
-        for v in Vote.objects.all():
+        for v in Vote.objects.filter(voter=self.u1):
             self.assertLess(time_before_vote, v.voted)
             self.assertGreater(time_after_vote, v.voted)
 
@@ -46,8 +46,8 @@ class VotingTests(WebTest):
 
         time_before_vote = datetime.datetime.now()
 
-        resp.form['form-0-points'].value = 30  # Vote points sum should be less or equal to 15
-        resp.form['form-1-points'].value = 20
+        resp.form['form-0-points'].value = 6  # Vote points sum should be less or equal to 15
+        resp.form['form-1-points'].value = 5
         resp = resp.form.submit()
         self.assertEqual(resp.status_int, 200)
 

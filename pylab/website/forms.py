@@ -55,16 +55,34 @@ class NextWeeklyEventForm(forms.ModelForm):
             self.check_existing_events(title, starts)
 
 
-class VotePointsForm(forms.ModelForm):
-    class Meta:
-        model = Vote
-        fields = ('points',)
-        widgets = {
-            'points': forms.NumberInput(attrs={'max': 99, 'class': 'vote-points-input'}),
-        }
+class ProjectPointsForm(forms.ModelForm):
+    points = forms.IntegerField(
+        min_value=0,
+        widget=forms.NumberInput(attrs={'max': 99, 'min': 0, 'class': 'vote-points-input'}),
+    )
 
-    def save(self, commit=True, *args, **kwargs):
-        vote = super(VotePointsForm, self).save(commit=False, *args, **kwargs)
+    def __init__(self, user, voting_poll, *args, **kwargs):
+        self.user = user
+        self.voting_poll = voting_poll
+        super(ProjectPointsForm, self).__init__(*args, **kwargs)
+
+        try:
+            vote = Vote.objects.get(voter=self.user, project__id=self.initial['id'])
+            self.fields['points'].initial = vote.points
+        except Vote.DoesNotExist:
+            pass
+
+    class Meta:
+        model = Project
+        fields = tuple()
+
+    def save(self, commit=True, *args, **kwargs):  # pylint: disable=unused-argument
+        vote, created = Vote.objects.get_or_create(  # pylint: disable=unused-variable
+            voter=self.user,
+            project=self.instance,
+            voting_poll=self.voting_poll
+        )
+        vote.points = self.cleaned_data['points']
         vote.voted = datetime.datetime.now()
         vote.save()
 
@@ -75,7 +93,7 @@ class BaseTotalPointsFormset(BaseModelFormSet):
         total_points = 0
 
         for form in self.forms:
-            if form.cleaned_data['points']:
+            if form.cleaned_data.get('points'):
                 total_points += form.cleaned_data['points']
 
         if total_points < 0 or total_points > 15:
