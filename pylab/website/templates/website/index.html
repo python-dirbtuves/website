@@ -7,11 +7,12 @@
 
   <!-- Heading Row -->
   <div class="row">
-    <div class="col-md-8">
-      <img class="img-responsive img-rounded"
-              src="/static/img/dummy_space.png" alt="">
-    </div> <!-- /.col-md-8 -->
     <div class="col-md-4">
+      <center>
+        <img class="img-responsive" src="/static/img/code_sample.jpg" alt="">
+      </center>
+    </div> <!-- /.col-md-4 -->
+    <div class="col-md-8">
       <h1>Python Workshop</h1>
       <p>The main purposes of Python Workshops are:
       <ul>
@@ -25,7 +26,7 @@
       beginner as well as a mature developer on Python workshops.
       Participation in any event is absolutely free. You are welcome!
       </p>
-    </div> <!-- /.col-md-4 -->
+    </div> <!-- /.col-md-8 -->
   </div> <!-- /.row -->
 
   <hr>
@@ -37,7 +38,7 @@
           </font> Python Workshop weekly meetup @Čiurlionio str. 13-1
           <!-- Not an elegant way to add spaces -->
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a class="btn btn-primary btn-lg" href="#">More info</a>
+          <a class="btn btn-primary btn-lg" href="{% url 'about' %}">More info</a>
         </h4>
       </div>
     </div> <!-- /.col-lg-12 -->
@@ -46,21 +47,21 @@
   <!-- Content Row -->
   <div class="row">
     <div class="col-md-4">
-      <center><img src="static/img/dummy_img1.png" alt=""></center>
+      <center><img src="static/img/glyder_snake.png" alt=""></center>
       <h2>Weekly meetups</h2>
       <p>See the description of the upcoming weekly meetups</p>
-      <a class="btn btn-default" href="#">Read more</a>
+      <a class="btn btn-default" href="{% url 'event-list' %}">Read more</a>
     </div> <!-- /.col-md-4 -->
 
     <div class="col-md-4">
-      <center><img src="static/img/dummy_img2.png" alt=""></center>
+      <center><img src="static/img/open_source_wolf.png" alt=""></center>
       <h2>Open source projects</h2>
       <p>Open source philosophy is considered while creating projects on the meetups</p>
       <a class="btn btn-default" href="{% url 'project-list' %}">Read more</a>
     </div> <!-- /.col-md-4 -->
 
     <div class="col-md-4">
-      <center><img src="static/img/dummy_img3.png" alt=""></center>
+      <center><img src="static/img/python_logo.png" alt=""></center>
       <h2>Why Python?</h2>
       <p>We use Python as a powerful and fast language, easy to learn</p>
       <a class="btn btn-default" href="https://www.python.org/">Read more</a>
@@ -69,15 +70,6 @@
 
   <!-- Footer -->
   <footer>
-  <br><br><br>
-  <center>
-    <a href="#"><img src="static/img/fb_logo.png" alt="">
-    &nbsp;&nbsp;
-    <a href="#"><img src="static/img/twitter_logo.png" alt="">
-    &nbsp;&nbsp;
-    <a href="#"><img src="static/img/pinterest_logo.png" alt="">
-  </center>
-  <br><br>
   </footer>
 
 </div> <!-- /.container -->
